@@ -1,1 +1,1 @@
-User-agent: *\nAllow: /\n\nSitemap: https://mohitmehral.github.io/ai-model-pricing/sitemap.xml
+User-agent: *\nAllow: /\n\nSitemap: https://copilot-founder.github.io/ai-model-pricing/sitemap.xml
