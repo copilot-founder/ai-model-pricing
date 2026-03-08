@@ -64,6 +64,14 @@
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "What is Google Vertex AI pricing for Anthropic Claude and Cohere models?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Google Cloud Vertex AI offers Anthropic Claude models (Claude 3.5 Sonnet at $3/$15 per million tokens, Claude 3 Haiku at $0.25/$1.25) and Cohere models (Command R+ at $2.50/$10, Command R at $0.50/$1.50). Use the GCP filter above to compare all Vertex AI models including Google Gemini, Anthropic Claude, and Cohere Command. Pricing is sourced from official Google Cloud documentation."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "How much does Anthropic Claude cost on Google Vertex AI?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -86,40 +94,10 @@
 </head>
 <body>
     <header>
-        <h1>AI Model Pricing Calculator: Google Vertex AI, Anthropic Claude, Cohere, OpenAI, AWS, Azure</h1>
-        <p>Compare pricing for Anthropic Claude and Cohere models on Google Cloud Vertex AI alongside OpenAI, AWS Bedrock, and Azure OpenAI. Calculate per-1k token costs in real-time with provider-specific tokenization. Filter by provider to compare Google Vertex AI pricing for Claude 3.5 Sonnet, Cohere Command R+, GPT-4, and 47+ LLM models to optimize your AI infrastructure costs.</p>
+        <h1>AI Model Pricing Calculator</h1>
+        <p style="font-size: 1.1rem; color: #fff; margin-top: 0.5rem; font-weight: 300;">(Google Vertex AI, Anthropic Claude, Cohere, OpenAI, AWS, Azure)</p>
+        <p style="max-width: 900px; margin: 1.5rem auto 0; line-height: 1.6;">Calculate per-1k token costs in real-time with provider-specific tokenization for 47+ LLM models.</p>
     </header>
-
-    <!-- Google Vertex AI Anthropic Claude Section -->
-    <section class="vertex-ai-section" id="google-vertex-ai-anthropic-claude" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 2rem; margin: 2rem auto; max-width: 1200px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        <h2 style="color: #1a73e8; font-size: 1.8rem; margin-bottom: 1rem;">Google Vertex AI Pricing for Anthropic Claude and Cohere</h2>
-        <ul style="list-style: none; padding: 0; line-height: 1.8; color: #333;">
-            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: #1a73e8; font-weight: bold;">✓</span>
-                <strong>Compare Anthropic Claude models on Google Cloud Vertex AI</strong> including Claude 3.5 Sonnet, Claude 3 Opus, and Claude 3 Haiku with per-1k token pricing.
-            </li>
-            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: #1a73e8; font-weight: bold;">✓</span>
-                <strong>Cohere Command models on Vertex AI</strong> including Command R, Command R+, and Command Light with input/output token costs.
-            </li>
-            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: #1a73e8; font-weight: bold;">✓</span>
-                <strong>Real-time cost calculator</strong> shows example costs for your prompts across Google Vertex AI, OpenAI, AWS Bedrock, and Azure OpenAI.
-            </li>
-            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: #1a73e8; font-weight: bold;">✓</span>
-                <strong>Filter to Vertex AI models only</strong> using the GCP tab below to compare Anthropic Claude vs Cohere vs Google Gemini pricing.
-            </li>
-            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: #1a73e8; font-weight: bold;">✓</span>
-                <strong>Provider-specific tokenization</strong> ensures accurate cost estimates for Google Cloud Vertex AI models (~4.2 chars/token for Gemini/PaLM).
-            </li>
-            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: #1a73e8; font-weight: bold;">✓</span>
-                <strong>Compare Anthropic cost vs Cohere cost</strong> side-by-side on the same platform (Google Vertex AI) or across providers (AWS, Azure, OpenAI).
-            </li>
-        </ul>
-    </section>
 
     <main>
         <!-- Top Tables Section -->
@@ -273,6 +251,11 @@ This tool helps developers, businesses, and researchers make informed decisions 
     <!-- FAQ Section -->
     <section class="faq-section" style="max-width: 1200px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
         <h2 style="color: #1a73e8; font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">Frequently Asked Questions</h2>
+        
+        <div class="faq-item" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e0e0e0;">
+            <h3 style="color: #333; font-size: 1.3rem; margin-bottom: 0.8rem;">What is Google Vertex AI pricing for Anthropic Claude and Cohere models?</h3>
+            <p style="color: #555; line-height: 1.7;">Google Cloud Vertex AI offers Anthropic Claude models (Claude 3.5 Sonnet at $3/$15 per million tokens, Claude 3 Haiku at $0.25/$1.25) and Cohere models (Command R+ at $2.50/$10, Command R at $0.50/$1.50). Use the GCP filter above to compare all Vertex AI models including Google Gemini, Anthropic Claude, and Cohere Command. Pricing is sourced from official Google Cloud documentation.</p>
+        </div>
         
         <div class="faq-item" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e0e0e0;">
             <h3 style="color: #333; font-size: 1.3rem; margin-bottom: 0.8rem;">How much does Anthropic Claude cost on Google Vertex AI?</h3>
