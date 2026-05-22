@@ -907,13 +907,13 @@ footer {
 .source-link {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    padding: 5px 10px;
+    gap: 5px;
+    padding: 6px 12px;
     background: transparent;
     border-radius: 6px;
     text-decoration: none;
     color: var(--text-secondary);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     transition: all 0.2s ease;
     border: 1px solid var(--border);
@@ -927,9 +927,11 @@ footer {
 }
 
 .footer-icon {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     object-fit: contain;
+}
+.footer-icon.icon-invert {
     filter: brightness(0) invert(1);
 }
 
