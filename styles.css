@@ -681,6 +681,11 @@ textarea:focus {
     border-color: var(--neon);
     box-shadow: 0 0 12px var(--neon-glow);
 }
+.model-element.selected {
+    border-color: var(--neon);
+    box-shadow: 0 0 16px var(--neon-glow-strong);
+    background: var(--bg-hover);
+}
 
 .model-element:hover {
     transform: translateY(-4px);

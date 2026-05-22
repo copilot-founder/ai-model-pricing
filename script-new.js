@@ -9,6 +9,7 @@ class ModelPricingApp {
         this.activeType = 'all';
         this.activeTable = 'pricing';
         this.tokenizers = {};
+        this.selectedModel = null;
         
         this.init();
     }
@@ -215,10 +216,14 @@ class ModelPricingApp {
     }
 
     updateDefaultTokenDisplay() {
-        const favs = this.getFavorites();
-        let topModel = null;
-        if (favs.length > 0) {
-            topModel = this.models.find(m => m.symbol === favs[0]);
+        // Priority: selected model > first favorite > first model in list
+        let topModel = this.selectedModel || null;
+
+        if (!topModel) {
+            const favs = this.getFavorites();
+            if (favs.length > 0) {
+                topModel = this.models.find(m => m.symbol === favs[0]);
+            }
         }
         if (!topModel) topModel = this.models[0];
         if (!topModel) return;
@@ -328,27 +333,41 @@ class ModelPricingApp {
         `;
         }).join('');
         
-        // Add hover listeners
-        document.querySelectorAll('.model-element').forEach(element => {
+        // Add hover and click listeners
+        const modelElements = document.querySelectorAll('.model-element');
+        modelElements.forEach((element, index) => {
             const provider = element.dataset.provider;
+            const symbol = element.dataset.symbol;
+            const model = filteredModels[index];
             const tokenInfo = element.querySelector('.token-info');
             const inputSpan = element.querySelector('.hover-input-tokens');
             const outputSpan = element.querySelector('.hover-output-tokens');
             
-            element.addEventListener('mouseenter', (e) => {
-                inputSpan.textContent = this.inputTokens[provider] || 0;
-                outputSpan.textContent = this.outputTokens[provider] || 0;
+            element.addEventListener('mouseenter', () => {
+                const inCount = this.inputTokens[provider] || 0;
+                const outCount = this.outputTokens[provider] || 0;
+                inputSpan.textContent = inCount;
+                outputSpan.textContent = outCount;
                 tokenInfo.style.display = 'block';
                 tokenInfo.style.left = '10px';
                 tokenInfo.style.top = '10px';
                 
-                // Update main token display
-                document.getElementById('input-tokens').textContent = this.inputTokens[provider] || 0;
-                document.getElementById('output-tokens').textContent = this.outputTokens[provider] || 0;
+                // Update main token display with model name
+                document.getElementById('input-tokens').innerHTML = `${inCount} <span class="token-model-hint">(${model.name})</span>`;
+                document.getElementById('output-tokens').innerHTML = `${outCount} <span class="token-model-hint">(${model.name})</span>`;
             });
             
             element.addEventListener('mouseleave', () => {
                 tokenInfo.style.display = 'none';
+                this.updateDefaultTokenDisplay();
+            });
+
+            // Click to pin model as selected
+            element.addEventListener('click', (e) => {
+                if (e.target.closest('.fav-btn') || e.target.closest('.element-name-link')) return;
+                this.selectedModel = model;
+                modelElements.forEach(el => el.classList.remove('selected'));
+                element.classList.add('selected');
                 this.updateDefaultTokenDisplay();
             });
         });
