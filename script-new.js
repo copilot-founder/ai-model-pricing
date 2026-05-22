@@ -216,16 +216,32 @@ class ModelPricingApp {
     }
 
     updateDefaultTokenDisplay() {
-        // Priority: selected model > first favorite > first model in list
-        let topModel = this.selectedModel || null;
+        // Always show token count with model name
+        // Priority: selectedModel (user clicked) > first favorite > first visible model
+        let topModel = null;
 
+        // 1. User explicitly selected a model
+        if (this.selectedModel) {
+            topModel = this.selectedModel;
+        }
+
+        // 2. First favorite model
         if (!topModel) {
             const favs = this.getFavorites();
             if (favs.length > 0) {
-                topModel = this.models.find(m => m.symbol === favs[0]);
+                topModel = this.models.find(m => favs.includes(m.symbol));
             }
         }
-        if (!topModel) topModel = this.models[0];
+
+        // 3. First model in current filtered list
+        if (!topModel) {
+            let filtered = this.models;
+            if (this.activeProvider !== 'all') {
+                filtered = filtered.filter(m => m.providerClass === this.activeProvider);
+            }
+            topModel = filtered[0];
+        }
+
         if (!topModel) return;
 
         const provider = topModel.providerClass;
@@ -310,7 +326,7 @@ class ModelPricingApp {
         grid.innerHTML = filteredModels.map(model => {
             const isFav = favs.includes(model.symbol);
             return `
-            <div class="model-element ${model.providerClass} ${model.featured ? 'featured' : ''} ${isFav ? 'is-fav' : ''}" data-provider="${model.providerClass}" data-symbol="${model.symbol}">
+            <div class="model-element ${model.providerClass} ${model.featured ? 'featured' : ''} ${isFav ? 'is-fav' : ''} ${this.selectedModel && this.selectedModel.symbol === model.symbol ? 'selected' : ''}" data-provider="${model.providerClass}" data-symbol="${model.symbol}">
                 <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); app.toggleFavorite('${model.symbol}')" title="${isFav ? 'Remove from favorites' : 'Add to favorites'}">${isFav ? '★' : '☆'}</button>
                 <a href="${model.docUrl}" target="_blank" class="element-name-link">
                     <div class="element-name">${model.name || 'Unknown'}</div>
@@ -905,8 +921,14 @@ class ModelPricingApp {
         let favs = this.getFavorites();
         if (favs.includes(symbol)) {
             favs = favs.filter(f => f !== symbol);
+            // If unfavorited the selected model, clear selection
+            if (this.selectedModel && this.selectedModel.symbol === symbol) {
+                this.selectedModel = null;
+            }
         } else {
             favs.push(symbol);
+            // Set newly favorited model as selected
+            this.selectedModel = this.models.find(m => m.symbol === symbol) || null;
         }
         localStorage.setItem('ai-pricing-favs', JSON.stringify(favs));
         this.renderModels();
