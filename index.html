@@ -117,18 +117,7 @@
         <div class="hero-inner">
             <div class="hero-badge">Updated May 2026 · 70+ Models</div>
             <h1>AI Model <span class="neon">Pricing</span> Calculator</h1>
-            <p class="hero-sub">
-                <span class="typewriter" id="typewriter"></span>
-            </p>
-
-            <!-- Animated Token/Price Bars -->
-            <div class="hero-demo">
-                <div class="demo-bar" style="--delay:0s; --width:85%"><span class="demo-label">GPT-5.3</span><span class="demo-tokens">142 tokens</span><span class="demo-price">$0.0107</span></div>
-                <div class="demo-bar" style="--delay:0.3s; --width:72%"><span class="demo-label">Claude 4.6</span><span class="demo-tokens">138 tokens</span><span class="demo-price">$0.0094</span></div>
-                <div class="demo-bar" style="--delay:0.6s; --width:40%"><span class="demo-label">Gemini 2.5</span><span class="demo-tokens">125 tokens</span><span class="demo-price">$0.0014</span></div>
-                <div class="demo-bar" style="--delay:0.9s; --width:22%"><span class="demo-label">GPT-4o mini</span><span class="demo-tokens">142 tokens</span><span class="demo-price">$0.0001</span></div>
-            </div>
-
+            <p class="hero-sub">Compare real-time token costs across OpenAI, Anthropic, AWS, Azure, GCP & Mistral.<br>Type your prompt — see costs instantly.</p>
             <div class="hero-stats">
                 <div class="stat"><span class="stat-num" id="stat-models">70+</span><span class="stat-label">Models</span></div>
                 <div class="stat-divider"></div>
@@ -143,8 +132,6 @@
                 <a href="#models" class="btn-ghost">Browse Models</a>
             </div>
         </div>
-        <!-- Neural Spiral Canvas -->
-        <canvas id="neural-canvas"></canvas>
         <div class="hero-grid-bg"></div>
     </header>
 
@@ -393,91 +380,5 @@ This tool helps developers, businesses, and researchers make informed decisions 
 
     <script src="https://cdn.jsdelivr.net/npm/tiktoken@1.0.10/dist/tiktoken.min.js"></script>
     <script src="script-new.js?v=2026"></script>
-    <script>
-    // Typewriter
-    (function(){
-        const texts = [
-            'Compare real-time token costs across OpenAI, Anthropic, AWS, Azure, GCP & Mistral.',
-            'Type your prompt \u2014 see costs instantly.',
-            'GPT-5.3 \u00b7 Claude 4.6 \u00b7 Gemini 2.5 \u00b7 Mistral Large 2 \u00b7 70+ models compared.',
-            'Find the cheapest model for your use case in seconds.'
-        ];
-        const el = document.getElementById('typewriter');
-        let ti = 0, ci = 0, deleting = false;
-        function tick() {
-            const current = texts[ti];
-            if (!deleting) {
-                el.textContent = current.slice(0, ci++);
-                if (ci > current.length) { deleting = true; setTimeout(tick, 2000); return; }
-            } else {
-                el.textContent = current.slice(0, ci--);
-                if (ci < 0) { deleting = false; ti = (ti + 1) % texts.length; ci = 0; }
-            }
-            setTimeout(tick, deleting ? 25 : 45);
-        }
-        tick();
-    })();
-
-    // Neural Spiral Canvas
-    (function(){
-        const c = document.getElementById('neural-canvas');
-        if (!c) return;
-        const ctx = c.getContext('2d');
-        let w, h, particles = [], t = 0;
-        function resize() { w = c.width = c.offsetWidth; h = c.height = c.offsetHeight; }
-        resize(); window.addEventListener('resize', resize);
-
-        for (let i = 0; i < 80; i++) {
-            particles.push({
-                angle: Math.random() * Math.PI * 2,
-                radius: 50 + Math.random() * 180,
-                speed: 0.003 + Math.random() * 0.008,
-                size: 1 + Math.random() * 2,
-                offset: Math.random() * Math.PI * 2
-            });
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, w, h);
-            const cx = w / 2, cy = h / 2;
-            t += 0.01;
-
-            // Draw connections
-            ctx.strokeStyle = 'rgba(0,255,136,0.04)';
-            ctx.lineWidth = 0.5;
-            for (let i = 0; i < particles.length; i++) {
-                const p = particles[i];
-                const x1 = cx + Math.cos(p.angle + t * p.speed * 10) * p.radius * (1 + 0.2 * Math.sin(t + p.offset));
-                const y1 = cy + Math.sin(p.angle + t * p.speed * 10) * p.radius * 0.6 * (1 + 0.2 * Math.cos(t + p.offset));
-                for (let j = i + 1; j < particles.length; j++) {
-                    const q = particles[j];
-                    const x2 = cx + Math.cos(q.angle + t * q.speed * 10) * q.radius * (1 + 0.2 * Math.sin(t + q.offset));
-                    const y2 = cy + Math.sin(q.angle + t * q.speed * 10) * q.radius * 0.6 * (1 + 0.2 * Math.cos(t + q.offset));
-                    const dist = Math.hypot(x2 - x1, y2 - y1);
-                    if (dist < 80) {
-                        ctx.beginPath();
-                        ctx.moveTo(x1, y1);
-                        ctx.lineTo(x2, y2);
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            // Draw particles
-            particles.forEach(p => {
-                p.angle += p.speed;
-                const x = cx + Math.cos(p.angle + t * p.speed * 5) * p.radius * (1 + 0.2 * Math.sin(t + p.offset));
-                const y = cy + Math.sin(p.angle + t * p.speed * 5) * p.radius * 0.6 * (1 + 0.2 * Math.cos(t + p.offset));
-                ctx.beginPath();
-                ctx.arc(x, y, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(0,255,136,${0.3 + 0.3 * Math.sin(t + p.offset)})`;
-                ctx.fill();
-            });
-
-            requestAnimationFrame(draw);
-        }
-        draw();
-    })();
-    </script>
 </body>
 </html>
