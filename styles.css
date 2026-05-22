@@ -114,33 +114,30 @@ body {
     text-shadow: 0 0 20px var(--neon-glow-strong);
 }
 
-/* Rotating Word */
-.rotate-word {
+/* Coin-i animation */
+.coin-i {
     display: inline-block;
     position: relative;
-    overflow: hidden;
-    vertical-align: bottom;
-    height: 1.15em;
-    min-width: 180px;
 }
-.word-inner {
-    display: inline-block;
-    position: relative;
+.coin-i::after {
+    content: '$';
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+    font-size: 0.35em;
     color: var(--neon);
-    text-shadow: 0 0 20px var(--neon-glow-strong);
-    transition: transform 0.8s ease, opacity 0.8s ease;
-}
-.word-inner.flip-out {
-    transform: translateY(-100%);
     opacity: 0;
+    animation: coinRise 3s ease-in-out infinite;
+    pointer-events: none;
 }
-.word-inner.flip-in {
-    animation: slideUp 0.8s ease;
+@keyframes coinRise {
+    0% { opacity: 0; transform: translateX(-50%) translateY(8px); }
+    20% { opacity: 0.8; }
+    60% { opacity: 0.6; transform: translateX(-50%) translateY(-12px); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-22px); }
 }
-@keyframes slideUp {
-    0% { transform: translateY(100%); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
+
 .hero-sub {
     font-size: 1.1rem;
     color: var(--text-secondary);
