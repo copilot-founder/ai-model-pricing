@@ -118,27 +118,28 @@ body {
 .rotate-word {
     display: inline-block;
     position: relative;
+    overflow: hidden;
+    vertical-align: bottom;
+    height: 1.15em;
     min-width: 180px;
 }
 .word-inner {
     display: inline-block;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    background: linear-gradient(135deg, var(--neon), #00ccff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 12px var(--neon-glow-strong));
+    position: relative;
+    color: var(--neon);
+    text-shadow: 0 0 20px var(--neon-glow-strong);
+    transition: transform 0.8s ease, opacity 0.8s ease;
 }
 .word-inner.flip-out {
-    transform: rotateX(90deg) scale(0.8);
+    transform: translateY(-100%);
     opacity: 0;
 }
 .word-inner.flip-in {
-    animation: flipIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    animation: slideUp 0.8s ease;
 }
-@keyframes flipIn {
-    0% { transform: rotateX(-90deg) scale(0.8); opacity: 0; }
-    100% { transform: rotateX(0) scale(1); opacity: 1; }
+@keyframes slideUp {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 .hero-sub {
     font-size: 1.1rem;
