@@ -113,42 +113,6 @@ body {
     color: var(--neon);
     text-shadow: 0 0 20px var(--neon-glow-strong);
 }
-
-/* Coin-i animation */
-.coin-i {
-    display: inline-block;
-    position: relative;
-    font-style: normal;
-}
-.coin-i::before,
-.coin-i::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    width: 0.28em;
-    height: 0.08em;
-    border-radius: 50%;
-    background: linear-gradient(180deg, #ffd700, #b8860b);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3), inset 0 -1px 1px rgba(255,255,255,0.3);
-    transform: translateX(-50%);
-    opacity: 0;
-    animation: stackCoin 2.5s ease-in-out infinite;
-}
-.coin-i::before {
-    animation-delay: 0s;
-}
-.coin-i::after {
-    animation-delay: 1.25s;
-}
-@keyframes stackCoin {
-    0% { opacity: 0; bottom: 110%; }
-    15% { opacity: 1; bottom: 105%; }
-    30% { opacity: 1; bottom: 100%; }
-    50% { opacity: 1; bottom: 100%; }
-    70% { opacity: 0.8; bottom: 100%; }
-    100% { opacity: 0; bottom: 100%; }
-}
-
 .hero-sub {
     font-size: 1.1rem;
     color: var(--text-secondary);
