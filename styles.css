@@ -110,8 +110,17 @@ body {
     margin-bottom: 1rem;
 }
 .hero h1 .neon, .neon {
-    color: var(--neon);
-    text-shadow: 0 0 20px var(--neon-glow-strong);
+    background: linear-gradient(90deg, var(--neon), #00ccaa, #00e5ff, var(--neon));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: waveGradient 4s ease infinite;
+}
+@keyframes waveGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 .hero-sub {
     font-size: 1.1rem;
