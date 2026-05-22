@@ -179,6 +179,90 @@ body {
     color: var(--neon);
 }
 
+/* Neural Canvas */
+#neural-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Typewriter */
+.typewriter {
+    border-right: 2px solid var(--neon);
+    padding-right: 4px;
+    animation: blink 0.8s step-end infinite;
+}
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* Hero Demo Bars */
+.hero-demo {
+    max-width: 500px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.demo-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.8rem;
+    position: relative;
+    overflow: hidden;
+    animation: slideIn 0.8s ease forwards;
+    animation-delay: var(--delay);
+    opacity: 0;
+    transform: translateX(-20px);
+}
+.demo-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--width);
+    background: linear-gradient(90deg, var(--neon-glow) 0%, transparent 100%);
+    border-radius: 8px;
+    animation: barGrow 1.5s ease forwards;
+    animation-delay: calc(var(--delay) + 0.5s);
+    transform-origin: left;
+    transform: scaleX(0);
+}
+@keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes barGrow {
+    to { transform: scaleX(1); }
+}
+.demo-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    z-index: 2;
+    min-width: 80px;
+}
+.demo-tokens {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    z-index: 2;
+}
+.demo-price {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--neon);
+    z-index: 2;
+    text-shadow: 0 0 6px var(--neon-glow);
+}
+
 main {
     max-width: 1200px;
     margin: 0 auto;
@@ -304,6 +388,12 @@ main {
 
 .token-text strong {
     color: var(--neon);
+}
+
+.token-model-hint {
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 0.75rem;
 }
 
 textarea {
@@ -645,6 +735,34 @@ textarea:focus {
     flex-direction: column;
     justify-content: space-between;
     font-size: 0.95rem;
+}
+
+/* Favorite Button */
+.fav-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    z-index: 5;
+    line-height: 1;
+    padding: 4px;
+}
+.fav-btn:hover {
+    color: var(--neon);
+    transform: scale(1.3);
+}
+.fav-btn.active {
+    color: var(--neon);
+    text-shadow: 0 0 8px var(--neon-glow);
+}
+.model-element.is-fav {
+    border-color: var(--neon);
+    box-shadow: 0 0 12px var(--neon-glow);
 }
 
 .model-element:hover {
@@ -1007,6 +1125,34 @@ footer {
     color: var(--text-secondary);
     line-height: 1.7;
     font-size: 0.9rem;
+}
+
+/* FAQ Accordion */
+.faq-item { cursor: pointer; }
+.faq-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.faq-icon {
+    font-size: 1.4rem;
+    color: var(--neon);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+.faq-item.open .faq-icon {
+    transform: rotate(45deg);
+}
+.faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding-top: 0;
+}
+.faq-item.open .faq-a {
+    max-height: 500px;
+    padding-top: 0.75rem;
 }
 
 .sr-only {

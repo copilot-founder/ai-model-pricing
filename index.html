@@ -117,7 +117,18 @@
         <div class="hero-inner">
             <div class="hero-badge">Updated May 2026 · 70+ Models</div>
             <h1>AI Model <span class="neon">Pricing</span> Calculator</h1>
-            <p class="hero-sub">Compare real-time token costs across OpenAI, Anthropic, AWS, Azure, GCP & Mistral.<br>Type your prompt — see costs instantly.</p>
+            <p class="hero-sub">
+                <span class="typewriter" id="typewriter"></span>
+            </p>
+
+            <!-- Animated Token/Price Bars -->
+            <div class="hero-demo">
+                <div class="demo-bar" style="--delay:0s; --width:85%"><span class="demo-label">GPT-5.3</span><span class="demo-tokens">142 tokens</span><span class="demo-price">$0.0107</span></div>
+                <div class="demo-bar" style="--delay:0.3s; --width:72%"><span class="demo-label">Claude 4.6</span><span class="demo-tokens">138 tokens</span><span class="demo-price">$0.0094</span></div>
+                <div class="demo-bar" style="--delay:0.6s; --width:40%"><span class="demo-label">Gemini 2.5</span><span class="demo-tokens">125 tokens</span><span class="demo-price">$0.0014</span></div>
+                <div class="demo-bar" style="--delay:0.9s; --width:22%"><span class="demo-label">GPT-4o mini</span><span class="demo-tokens">142 tokens</span><span class="demo-price">$0.0001</span></div>
+            </div>
+
             <div class="hero-stats">
                 <div class="stat"><span class="stat-num" id="stat-models">70+</span><span class="stat-label">Models</span></div>
                 <div class="stat-divider"></div>
@@ -128,10 +139,12 @@
                 <div class="stat"><span class="stat-num">Real-time</span><span class="stat-label">Cost Calc</span></div>
             </div>
             <div class="hero-cta">
-                <a href="#calculator" class="btn-primary">Start Calculating ↓</a>
+                <a href="#calculator" class="btn-primary">Start Calculating</a>
                 <a href="#models" class="btn-ghost">Browse Models</a>
             </div>
         </div>
+        <!-- Neural Spiral Canvas -->
+        <canvas id="neural-canvas"></canvas>
         <div class="hero-grid-bg"></div>
     </header>
 
@@ -139,8 +152,8 @@
         <!-- Top Tables Section -->
         <section class="top-tables" id="calculator">
             <div class="table-tabs">
-                <button class="table-tab active" data-table="pricing">💰 Pricing Calculator</button>
-                <button class="table-tab" data-table="services">🗺 Services Map</button>
+                <button class="table-tab active" data-table="pricing">Pricing Calculator</button>
+                <button class="table-tab" data-table="services">Services Map</button>
             </div>
             
             <!-- Pricing Calculator Section -->
@@ -293,23 +306,49 @@ This tool helps developers, businesses, and researchers make informed decisions 
     <section class="faq-section" id="faq-section">
         <div class="faq-inner">
             <div class="section-label">FAQ</div>
-            <h2 class="section-title">Common <span class="neon">Questions</span></h2>
+            <h2 class="section-title">AI Model Token/<span class="neon">Pricing</span> Calculator</h2>
             <div class="faq-grid">
-        
-        <div class="faq-item">
-            <div class="faq-q">What is Google Vertex AI pricing for Anthropic Claude and Cohere models?</div>
-            <p>Google Cloud Vertex AI offers Anthropic Claude models (Claude 3.5 Sonnet at $3/$15 per million tokens, Claude 3 Haiku at $0.25/$1.25) and Cohere models (Command R+ at $2.50/$10, Command R at $0.50/$1.50). Use the GCP filter above to compare all Vertex AI models including Google Gemini, Anthropic Claude, and Cohere Command. Pricing is sourced from official Google Cloud documentation.</p>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-q">How much does Anthropic Claude cost on Google Vertex AI?</div>
-            <p>Anthropic Claude pricing on Google Cloud Vertex AI varies by model: Claude 3.5 Sonnet costs $3.00 per million input tokens and $15.00 per million output tokens, while Claude 3 Haiku is more economical at $0.25/$1.25 per million tokens. These prices are sourced from official Google Cloud documentation and may vary by region. Always confirm the latest pricing with Google Cloud Vertex AI before deploying production workloads.</p>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-q">How does Anthropic Claude pricing on Vertex AI compare to Cohere and OpenAI?</div>
-            <p>On Google Vertex AI, Anthropic Claude 3.5 Sonnet ($3/$15 per million tokens) is competitively priced against OpenAI GPT-4 Turbo ($10/$30) but more expensive than Cohere Command R+ ($2.50/$10). For cost-sensitive workloads, Cohere Command R ($0.50/$1.50) and Claude 3 Haiku ($0.25/$1.25) offer budget-friendly alternatives. Use the calculator above to compare exact costs for your specific prompt and output lengths, as pricing comes from official provider documentation and should be verified for your use case.</p>
-        </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">What is a token and how does it affect AI pricing? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>A token is a chunk of text that AI models process — roughly 3-4 characters or ¾ of a word. You're charged per token for both input (your prompt) and output (the AI response). For example, "Hello world" is about 2 tokens. Understanding tokens helps you estimate costs before running expensive API calls. Different providers tokenize text differently, which is why the same prompt can cost different amounts across OpenAI, Anthropic, and Google.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">How do I calculate the cost of an AI API call? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Cost = (Input Tokens × Input Price) + (Output Tokens × Output Price). For example, with GPT-4o at $0.0025/1K input and $0.01/1K output: a 500-token prompt with a 1000-token response costs (500/1000 × $0.0025) + (1000/1000 × $0.01) = $0.01125. Use our calculator above — just paste your prompt and expected output length to see real-time costs across all 70+ models.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Which AI model is cheapest for my use case? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>It depends on your needs. For simple tasks (classification, extraction): GPT-4o mini ($0.00015/1K) or Claude 3.5 Haiku ($0.0008/1K) are extremely cheap. For complex reasoning: GPT-5.3 or Claude 4.6 offer best quality but cost more. For code: Codestral 2501 or GPT-4o are cost-effective. For high-volume production: Amazon Nova Micro ($0.000035/1K) is the cheapest option available. Use the provider filter tabs above to compare within your budget.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">What's the difference between GPT-5.3, Claude 4.6, and Gemini 2.5 Pro? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>GPT-5.3 (OpenAI) — 256K context, strongest at general reasoning and instruction following, $0.015/$0.06 per 1K tokens. Claude 4.6 (Anthropic) — 500K context (largest), excels at long document analysis and coding, $0.012/$0.06. Gemini 2.5 Pro (Google) — 1M context, best for multimodal tasks (text+image+video), cheapest at $0.00125/$0.01. Choose based on: context length needed, multimodal requirements, and budget.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Why do different providers charge different prices for the same model? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>When you access Claude on AWS Bedrock vs directly from Anthropic vs on Google Vertex AI, prices are usually identical — providers pass through the model maker's pricing. However, differences arise from: (1) commitment discounts (AWS Savings Plans), (2) regional pricing variations, (3) provisioned throughput vs on-demand, and (4) additional platform features like guardrails, caching, or fine-tuning. Always compare the "per 1K token" rate using our calculator for apples-to-apples comparison.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">How accurate is this token calculator? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Our calculator uses provider-specific tokenization: OpenAI/Azure models use the tiktoken library (cl100k_base encoding) for ~95% accuracy. For Anthropic, AWS, GCP, and Mistral, we use calibrated character-to-token ratios (3.6-4.2 chars/token) giving 85-90% accuracy. For exact counts, hover over any model card to see provider-specific token counts. The actual billed amount may vary slightly due to system tokens and formatting overhead.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">What is context length and why does it matter for pricing? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Context length is the maximum number of tokens a model can process in a single request (input + output combined). Claude 4.6 supports 500K tokens (~375K words), Gemini 2.5 Pro supports 1M tokens. Longer context = you can send entire documents, codebases, or conversation histories. But you pay for every token in the context window, so sending a 100K-token document costs 100× more than a 1K-token prompt. Optimize by only including relevant context.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">How can I reduce my AI API costs? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Key strategies: (1) Use smaller models for simple tasks — GPT-4o mini or Nova Micro instead of GPT-5.3. (2) Prompt engineering — shorter, clearer prompts = fewer input tokens. (3) Set max_tokens to limit output length. (4) Use caching (Anthropic prompt caching saves 90% on repeated prefixes). (5) Batch API calls for 50% discount (OpenAI Batch API). (6) Fine-tune a smaller model for your specific task. (7) Use embeddings + RAG instead of stuffing everything in context.</p></div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -319,7 +358,6 @@ This tool helps developers, businesses, and researchers make informed decisions 
             <nav class="official-sources" aria-label="Official AI Provider Documentation">
                 <div class="section-label">Sources</div>
                 <h3>Official Pricing Documentation</h3>
-                <div class="sources-grid">
                     <a href="https://aws.amazon.com/bedrock/pricing/" target="_blank" rel="noopener" class="source-link" aria-label="AWS Bedrock official pricing documentation">
                         <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="AWS" class="footer-icon">
                         <span>AWS Bedrock</span>
@@ -355,5 +393,91 @@ This tool helps developers, businesses, and researchers make informed decisions 
 
     <script src="https://cdn.jsdelivr.net/npm/tiktoken@1.0.10/dist/tiktoken.min.js"></script>
     <script src="script-new.js?v=2026"></script>
+    <script>
+    // Typewriter
+    (function(){
+        const texts = [
+            'Compare real-time token costs across OpenAI, Anthropic, AWS, Azure, GCP & Mistral.',
+            'Type your prompt \u2014 see costs instantly.',
+            'GPT-5.3 \u00b7 Claude 4.6 \u00b7 Gemini 2.5 \u00b7 Mistral Large 2 \u00b7 70+ models compared.',
+            'Find the cheapest model for your use case in seconds.'
+        ];
+        const el = document.getElementById('typewriter');
+        let ti = 0, ci = 0, deleting = false;
+        function tick() {
+            const current = texts[ti];
+            if (!deleting) {
+                el.textContent = current.slice(0, ci++);
+                if (ci > current.length) { deleting = true; setTimeout(tick, 2000); return; }
+            } else {
+                el.textContent = current.slice(0, ci--);
+                if (ci < 0) { deleting = false; ti = (ti + 1) % texts.length; ci = 0; }
+            }
+            setTimeout(tick, deleting ? 25 : 45);
+        }
+        tick();
+    })();
+
+    // Neural Spiral Canvas
+    (function(){
+        const c = document.getElementById('neural-canvas');
+        if (!c) return;
+        const ctx = c.getContext('2d');
+        let w, h, particles = [], t = 0;
+        function resize() { w = c.width = c.offsetWidth; h = c.height = c.offsetHeight; }
+        resize(); window.addEventListener('resize', resize);
+
+        for (let i = 0; i < 80; i++) {
+            particles.push({
+                angle: Math.random() * Math.PI * 2,
+                radius: 50 + Math.random() * 180,
+                speed: 0.003 + Math.random() * 0.008,
+                size: 1 + Math.random() * 2,
+                offset: Math.random() * Math.PI * 2
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, w, h);
+            const cx = w / 2, cy = h / 2;
+            t += 0.01;
+
+            // Draw connections
+            ctx.strokeStyle = 'rgba(0,255,136,0.04)';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                const x1 = cx + Math.cos(p.angle + t * p.speed * 10) * p.radius * (1 + 0.2 * Math.sin(t + p.offset));
+                const y1 = cy + Math.sin(p.angle + t * p.speed * 10) * p.radius * 0.6 * (1 + 0.2 * Math.cos(t + p.offset));
+                for (let j = i + 1; j < particles.length; j++) {
+                    const q = particles[j];
+                    const x2 = cx + Math.cos(q.angle + t * q.speed * 10) * q.radius * (1 + 0.2 * Math.sin(t + q.offset));
+                    const y2 = cy + Math.sin(q.angle + t * q.speed * 10) * q.radius * 0.6 * (1 + 0.2 * Math.cos(t + q.offset));
+                    const dist = Math.hypot(x2 - x1, y2 - y1);
+                    if (dist < 80) {
+                        ctx.beginPath();
+                        ctx.moveTo(x1, y1);
+                        ctx.lineTo(x2, y2);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw particles
+            particles.forEach(p => {
+                p.angle += p.speed;
+                const x = cx + Math.cos(p.angle + t * p.speed * 5) * p.radius * (1 + 0.2 * Math.sin(t + p.offset));
+                const y = cy + Math.sin(p.angle + t * p.speed * 5) * p.radius * 0.6 * (1 + 0.2 * Math.cos(t + p.offset));
+                ctx.beginPath();
+                ctx.arc(x, y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0,255,136,${0.3 + 0.3 * Math.sin(t + p.offset)})`;
+                ctx.fill();
+            });
+
+            requestAnimationFrame(draw);
+        }
+        draw();
+    })();
+    </script>
 </body>
 </html>

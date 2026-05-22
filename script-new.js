@@ -210,7 +210,25 @@ class ModelPricingApp {
             mistral: this.tokenizeMistral(outputText)
         };
         
+        this.updateDefaultTokenDisplay();
         this.updatePricing();
+    }
+
+    updateDefaultTokenDisplay() {
+        const favs = this.getFavorites();
+        let topModel = null;
+        if (favs.length > 0) {
+            topModel = this.models.find(m => m.symbol === favs[0]);
+        }
+        if (!topModel) topModel = this.models[0];
+        if (!topModel) return;
+
+        const provider = topModel.providerClass;
+        const inCount = this.inputTokens[provider] || 0;
+        const outCount = this.outputTokens[provider] || 0;
+
+        document.getElementById('input-tokens').innerHTML = `${inCount} <span class="token-model-hint">(${topModel.name})</span>`;
+        document.getElementById('output-tokens').innerHTML = `${outCount} <span class="token-model-hint">(${topModel.name})</span>`;
     }
 
     tokenizeOpenAI(text) {
@@ -275,8 +293,20 @@ class ModelPricingApp {
         if (this.activeProvider !== 'all') {
             filteredModels = filteredModels.filter(model => model.providerClass === this.activeProvider);
         }
-        grid.innerHTML = filteredModels.map(model => `
-            <div class="model-element ${model.providerClass} ${model.featured ? 'featured' : ''}" data-provider="${model.providerClass}">
+
+        // Sort: favorites first
+        const favs = this.getFavorites();
+        filteredModels = [...filteredModels].sort((a, b) => {
+            const aFav = favs.includes(a.symbol) ? 1 : 0;
+            const bFav = favs.includes(b.symbol) ? 1 : 0;
+            return bFav - aFav;
+        });
+
+        grid.innerHTML = filteredModels.map(model => {
+            const isFav = favs.includes(model.symbol);
+            return `
+            <div class="model-element ${model.providerClass} ${model.featured ? 'featured' : ''} ${isFav ? 'is-fav' : ''}" data-provider="${model.providerClass}" data-symbol="${model.symbol}">
+                <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); app.toggleFavorite('${model.symbol}')" title="${isFav ? 'Remove from favorites' : 'Add to favorites'}">${isFav ? '★' : '☆'}</button>
                 <a href="${model.docUrl}" target="_blank" class="element-name-link">
                     <div class="element-name">${model.name || 'Unknown'}</div>
                 </a>
@@ -295,7 +325,8 @@ class ModelPricingApp {
                     <div>Output: <span class="hover-output-tokens">0</span> tokens</div>
                 </div>
             </div>
-        `).join('');
+        `;
+        }).join('');
         
         // Add hover listeners
         document.querySelectorAll('.model-element').forEach(element => {
@@ -845,8 +876,26 @@ class ModelPricingApp {
         if (name.includes('dall-e') || name.includes('imagen') || name.includes('stability') || name.includes('diffusion')) return 'image';
         return 'other';
     }
+
+    getFavorites() {
+        try {
+            return JSON.parse(localStorage.getItem('ai-pricing-favs') || '[]');
+        } catch { return []; }
+    }
+
+    toggleFavorite(symbol) {
+        let favs = this.getFavorites();
+        if (favs.includes(symbol)) {
+            favs = favs.filter(f => f !== symbol);
+        } else {
+            favs.push(symbol);
+        }
+        localStorage.setItem('ai-pricing-favs', JSON.stringify(favs));
+        this.renderModels();
+    }
 }
 
+let app;
 document.addEventListener('DOMContentLoaded', () => {
-    new ModelPricingApp();
+    app = new ModelPricingApp();
 });
