@@ -9,6 +9,7 @@
     <meta name="author" content="Mohit Mehral">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://mohitmehral.github.io/ai-model-pricing/">
+    <meta name="theme-color" content="#0a0a0f">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -99,8 +100,8 @@
 <body>
     <header>
         <h1>AI Model Pricing Calculator</h1>
-        <p style="font-size: 1.1rem; color: #fff; margin-top: 0.5rem; font-weight: 300;">(Google Vertex AI, Anthropic Claude, Cohere, OpenAI, AWS, Azure)</p>
-        <p style="max-width: 900px; margin: 1.5rem auto 0; line-height: 1.6;">Calculate per-1k token costs in real-time with provider-specific tokenization for 47+ LLM models.</p>
+        <p>(Google Vertex AI, Anthropic Claude, Cohere, OpenAI, AWS, Azure)</p>
+        <p>Calculate per-1k token costs in real-time with provider-specific tokenization for 47+ LLM models.</p>
     </header>
 
     <main>
@@ -227,6 +228,7 @@ This tool helps developers, businesses, and researchers make informed decisions 
                         <button class="tab-button" data-provider="openai" role="tab" aria-selected="false">OpenAI (<span id="openai-count">0</span>)</button>
                         <button class="tab-button" data-provider="anthropic" role="tab" aria-selected="false">Anthropic (<span id="anthropic-count">0</span>)</button>
                         <button class="tab-button" data-provider="gcp" role="tab" aria-selected="false">GCP (<span id="gcp-count">0</span>)</button>
+                        <button class="tab-button" data-provider="mistral" role="tab" aria-selected="false">Mistral (<span id="mistral-count">0</span>)</button>
                     </div>
                     <div class="download-links">
                         <a href="#" id="download-md" class="download-link">Download MD</a>
@@ -253,22 +255,22 @@ This tool helps developers, businesses, and researchers make informed decisions 
     </main>
 
     <!-- FAQ Section -->
-    <section class="faq-section" style="max-width: 1200px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <h2 style="color: #1a73e8; font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">Frequently Asked Questions</h2>
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
         
-        <div class="faq-item" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e0e0e0;">
-            <h3 style="color: #333; font-size: 1.3rem; margin-bottom: 0.8rem;">What is Google Vertex AI pricing for Anthropic Claude and Cohere models?</h3>
-            <p style="color: #555; line-height: 1.7;">Google Cloud Vertex AI offers Anthropic Claude models (Claude 3.5 Sonnet at $3/$15 per million tokens, Claude 3 Haiku at $0.25/$1.25) and Cohere models (Command R+ at $2.50/$10, Command R at $0.50/$1.50). Use the GCP filter above to compare all Vertex AI models including Google Gemini, Anthropic Claude, and Cohere Command. Pricing is sourced from official Google Cloud documentation.</p>
+        <div class="faq-item">
+            <h3>What is Google Vertex AI pricing for Anthropic Claude and Cohere models?</h3>
+            <p>Google Cloud Vertex AI offers Anthropic Claude models (Claude 3.5 Sonnet at $3/$15 per million tokens, Claude 3 Haiku at $0.25/$1.25) and Cohere models (Command R+ at $2.50/$10, Command R at $0.50/$1.50). Use the GCP filter above to compare all Vertex AI models including Google Gemini, Anthropic Claude, and Cohere Command. Pricing is sourced from official Google Cloud documentation.</p>
         </div>
         
-        <div class="faq-item" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e0e0e0;">
-            <h3 style="color: #333; font-size: 1.3rem; margin-bottom: 0.8rem;">How much does Anthropic Claude cost on Google Vertex AI?</h3>
-            <p style="color: #555; line-height: 1.7;">Anthropic Claude pricing on Google Cloud Vertex AI varies by model: Claude 3.5 Sonnet costs $3.00 per million input tokens and $15.00 per million output tokens, while Claude 3 Haiku is more economical at $0.25/$1.25 per million tokens. These prices are sourced from official Google Cloud documentation and may vary by region. Always confirm the latest pricing with Google Cloud Vertex AI before deploying production workloads.</p>
+        <div class="faq-item">
+            <h3>How much does Anthropic Claude cost on Google Vertex AI?</h3>
+            <p>Anthropic Claude pricing on Google Cloud Vertex AI varies by model: Claude 3.5 Sonnet costs $3.00 per million input tokens and $15.00 per million output tokens, while Claude 3 Haiku is more economical at $0.25/$1.25 per million tokens. These prices are sourced from official Google Cloud documentation and may vary by region. Always confirm the latest pricing with Google Cloud Vertex AI before deploying production workloads.</p>
         </div>
         
-        <div class="faq-item" style="margin-bottom: 0;">
-            <h3 style="color: #333; font-size: 1.3rem; margin-bottom: 0.8rem;">How does Anthropic Claude pricing on Vertex AI compare to Cohere and OpenAI?</h3>
-            <p style="color: #555; line-height: 1.7;">On Google Vertex AI, Anthropic Claude 3.5 Sonnet ($3/$15 per million tokens) is competitively priced against OpenAI GPT-4 Turbo ($10/$30) but more expensive than Cohere Command R+ ($2.50/$10). For cost-sensitive workloads, Cohere Command R ($0.50/$1.50) and Claude 3 Haiku ($0.25/$1.25) offer budget-friendly alternatives. Use the calculator above to compare exact costs for your specific prompt and output lengths, as pricing comes from official provider documentation and should be verified for your use case.</p>
+        <div class="faq-item">
+            <h3>How does Anthropic Claude pricing on Vertex AI compare to Cohere and OpenAI?</h3>
+            <p>On Google Vertex AI, Anthropic Claude 3.5 Sonnet ($3/$15 per million tokens) is competitively priced against OpenAI GPT-4 Turbo ($10/$30) but more expensive than Cohere Command R+ ($2.50/$10). For cost-sensitive workloads, Cohere Command R ($0.50/$1.50) and Claude 3 Haiku ($0.25/$1.25) offer budget-friendly alternatives. Use the calculator above to compare exact costs for your specific prompt and output lengths, as pricing comes from official provider documentation and should be verified for your use case.</p>
         </div>
     </section>
 
