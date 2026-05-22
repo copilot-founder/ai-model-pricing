@@ -98,28 +98,62 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>AI Model Pricing Calculator</h1>
-        <p>(Google Vertex AI, Anthropic Claude, Cohere, OpenAI, AWS, Azure)</p>
-        <p>Calculate per-1k token costs in real-time with provider-specific tokenization for 47+ LLM models.</p>
+
+    <!-- NAV -->
+    <nav class="topnav">
+        <div class="topnav-inner">
+            <span class="topnav-logo">⚡ AI Pricing</span>
+            <div class="topnav-links">
+                <a href="#calculator">Calculator</a>
+                <a href="#models">Models</a>
+                <a href="#faq-section">FAQ</a>
+                <a href="https://github.com/mohitmehral" target="_blank" rel="noopener" class="topnav-gh">GitHub ↗</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Updated May 2026 · 70+ Models</div>
+            <h1>AI Model <span class="neon">Pricing</span> Calculator</h1>
+            <p class="hero-sub">Compare real-time token costs across OpenAI, Anthropic, AWS, Azure, GCP & Mistral.<br>Type your prompt — see costs instantly.</p>
+            <div class="hero-stats">
+                <div class="stat"><span class="stat-num" id="stat-models">70+</span><span class="stat-label">Models</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><span class="stat-num">6</span><span class="stat-label">Providers</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><span class="stat-num">Free</span><span class="stat-label">Always</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><span class="stat-num">Real-time</span><span class="stat-label">Cost Calc</span></div>
+            </div>
+            <div class="hero-cta">
+                <a href="#calculator" class="btn-primary">Start Calculating ↓</a>
+                <a href="#models" class="btn-ghost">Browse Models</a>
+            </div>
+        </div>
+        <div class="hero-grid-bg"></div>
     </header>
 
     <main>
         <!-- Top Tables Section -->
-        <section class="top-tables">
+        <section class="top-tables" id="calculator">
             <div class="table-tabs">
-                <button class="table-tab active" data-table="pricing">Pricing</button>
-                <button class="table-tab" data-table="services">Services</button>
+                <button class="table-tab active" data-table="pricing">💰 Pricing Calculator</button>
+                <button class="table-tab" data-table="services">🗺 Services Map</button>
             </div>
             
             <!-- Pricing Calculator Section -->
             <div class="table-container" id="pricing-table">
-                <section class="calculator">
+                <section class="calculator" id="calculator-section">
                     <div class="calculator-header">
-                        <h2>AI Token Calculator 
-                            <span class="info-icon" title="What are tokens?">i</span>
-                        </h2>
-                        <div class="pricing-updated">Prices updated: <time id="calc-last-updated">Loading...</time></div>
+                        <div>
+                            <h2>AI Token Calculator 
+                                <span class="info-icon" title="What are tokens?">i</span>
+                            </h2>
+                            <p class="calc-desc">Enter your prompt and expected output — costs update live as you type</p>
+                        </div>
+                        <div class="pricing-updated">Last updated: <time id="calc-last-updated">Loading...</time></div>
                     </div>
                     <div class="token-info-tooltip" id="token-info-tooltip">
                         <strong>What are Tokens?</strong><br>
@@ -219,21 +253,22 @@ This tool helps developers, businesses, and researchers make informed decisions 
                     </div>
                 </section>
                 
-                <section class="pricing-filters" aria-label="AI Provider Filter Options">
+                <section class="pricing-filters" aria-label="AI Provider Filter Options" id="models">
                     <h3 class="sr-only">Filter AI Models by Provider</h3>
-                    <div class="provider-tabs" role="tablist">
-                        <button class="tab-button active" data-provider="all" role="tab" aria-selected="true">All (<span id="all-count">0</span>)</button>
-                        <button class="tab-button" data-provider="aws" role="tab" aria-selected="false">AWS (<span id="aws-count">0</span>)</button>
-                        <button class="tab-button" data-provider="azure" role="tab" aria-selected="false">Azure (<span id="azure-count">0</span>)</button>
-                        <button class="tab-button" data-provider="openai" role="tab" aria-selected="false">OpenAI (<span id="openai-count">0</span>)</button>
-                        <button class="tab-button" data-provider="anthropic" role="tab" aria-selected="false">Anthropic (<span id="anthropic-count">0</span>)</button>
-                        <button class="tab-button" data-provider="gcp" role="tab" aria-selected="false">GCP (<span id="gcp-count">0</span>)</button>
-                        <button class="tab-button" data-provider="mistral" role="tab" aria-selected="false">Mistral (<span id="mistral-count">0</span>)</button>
-                    </div>
-                    <div class="download-links">
-                        <a href="#" id="download-md" class="download-link">Download MD</a>
-                        <span class="separator">|</span>
-                        <a href="#" id="download-pdf" class="download-link">Download PDF</a>
+                    <div class="filters-row">
+                        <div class="provider-tabs" role="tablist">
+                            <button class="tab-button active" data-provider="all" role="tab" aria-selected="true">All <span class="count-badge" id="all-count">0</span></button>
+                            <button class="tab-button" data-provider="aws" role="tab" aria-selected="false">AWS <span class="count-badge" id="aws-count">0</span></button>
+                            <button class="tab-button" data-provider="azure" role="tab" aria-selected="false">Azure <span class="count-badge" id="azure-count">0</span></button>
+                            <button class="tab-button" data-provider="openai" role="tab" aria-selected="false">OpenAI <span class="count-badge" id="openai-count">0</span></button>
+                            <button class="tab-button" data-provider="anthropic" role="tab" aria-selected="false">Anthropic <span class="count-badge" id="anthropic-count">0</span></button>
+                            <button class="tab-button" data-provider="gcp" role="tab" aria-selected="false">GCP <span class="count-badge" id="gcp-count">0</span></button>
+                            <button class="tab-button" data-provider="mistral" role="tab" aria-selected="false">Mistral <span class="count-badge" id="mistral-count">0</span></button>
+                        </div>
+                        <div class="download-links">
+                            <a href="#" id="download-md" class="btn-download">↓ MD</a>
+                            <a href="#" id="download-pdf" class="btn-download">↓ PDF</a>
+                        </div>
                     </div>
                 </section>
                 
@@ -255,56 +290,66 @@ This tool helps developers, businesses, and researchers make informed decisions 
     </main>
 
     <!-- FAQ Section -->
-    <section class="faq-section">
-        <h2>Frequently Asked Questions</h2>
+    <section class="faq-section" id="faq-section">
+        <div class="faq-inner">
+            <div class="section-label">FAQ</div>
+            <h2 class="section-title">Common <span class="neon">Questions</span></h2>
+            <div class="faq-grid">
         
         <div class="faq-item">
-            <h3>What is Google Vertex AI pricing for Anthropic Claude and Cohere models?</h3>
+            <div class="faq-q">What is Google Vertex AI pricing for Anthropic Claude and Cohere models?</div>
             <p>Google Cloud Vertex AI offers Anthropic Claude models (Claude 3.5 Sonnet at $3/$15 per million tokens, Claude 3 Haiku at $0.25/$1.25) and Cohere models (Command R+ at $2.50/$10, Command R at $0.50/$1.50). Use the GCP filter above to compare all Vertex AI models including Google Gemini, Anthropic Claude, and Cohere Command. Pricing is sourced from official Google Cloud documentation.</p>
         </div>
         
         <div class="faq-item">
-            <h3>How much does Anthropic Claude cost on Google Vertex AI?</h3>
+            <div class="faq-q">How much does Anthropic Claude cost on Google Vertex AI?</div>
             <p>Anthropic Claude pricing on Google Cloud Vertex AI varies by model: Claude 3.5 Sonnet costs $3.00 per million input tokens and $15.00 per million output tokens, while Claude 3 Haiku is more economical at $0.25/$1.25 per million tokens. These prices are sourced from official Google Cloud documentation and may vary by region. Always confirm the latest pricing with Google Cloud Vertex AI before deploying production workloads.</p>
         </div>
         
         <div class="faq-item">
-            <h3>How does Anthropic Claude pricing on Vertex AI compare to Cohere and OpenAI?</h3>
+            <div class="faq-q">How does Anthropic Claude pricing on Vertex AI compare to Cohere and OpenAI?</div>
             <p>On Google Vertex AI, Anthropic Claude 3.5 Sonnet ($3/$15 per million tokens) is competitively priced against OpenAI GPT-4 Turbo ($10/$30) but more expensive than Cohere Command R+ ($2.50/$10). For cost-sensitive workloads, Cohere Command R ($0.50/$1.50) and Claude 3 Haiku ($0.25/$1.25) offer budget-friendly alternatives. Use the calculator above to compare exact costs for your specific prompt and output lengths, as pricing comes from official provider documentation and should be verified for your use case.</p>
+        </div>
+            </div>
         </div>
     </section>
 
     <footer>
         <section class="pricing-info">
             <nav class="official-sources" aria-label="Official AI Provider Documentation">
+                <div class="section-label">Sources</div>
                 <h3>Official Pricing Documentation</h3>
                 <div class="sources-grid">
-                    <a href="https://aws.amazon.com/bedrock/pricing/" target="_blank" rel="noopener" class="source-link aws" aria-label="AWS Bedrock official pricing documentation">
+                    <a href="https://aws.amazon.com/bedrock/pricing/" target="_blank" rel="noopener" class="source-link" aria-label="AWS Bedrock official pricing documentation">
                         <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="AWS" class="footer-icon">
                         <span>AWS Bedrock</span>
                     </a>
-                    <a href="https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/" target="_blank" rel="noopener" class="source-link azure" aria-label="Azure OpenAI official pricing documentation">
+                    <a href="https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/" target="_blank" rel="noopener" class="source-link" aria-label="Azure OpenAI official pricing documentation">
                         <img src="https://img.icons8.com/fluency/48/azure-1.png" alt="Azure" class="footer-icon">
                         <span>Azure OpenAI</span>
                     </a>
-                    <a href="https://openai.com/pricing" target="_blank" rel="noopener" class="source-link openai" aria-label="OpenAI official pricing documentation">
+                    <a href="https://openai.com/pricing" target="_blank" rel="noopener" class="source-link" aria-label="OpenAI official pricing documentation">
                         <img src="https://img.icons8.com/ios/50/chatgpt.png" alt="OpenAI" class="footer-icon">
                         <span>OpenAI</span>
                     </a>
-                    <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener" class="source-link anthropic" aria-label="Anthropic Claude official pricing documentation">
+                    <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener" class="source-link" aria-label="Anthropic Claude official pricing documentation">
                         <img src="https://img.icons8.com/ios/50/claude.png" alt="Anthropic" class="footer-icon">
                         <span>Anthropic</span>
                     </a>
-                    <a href="https://cloud.google.com/vertex-ai/pricing" target="_blank" rel="noopener" class="source-link gcp" aria-label="Google Cloud Vertex AI official pricing documentation">
+                    <a href="https://cloud.google.com/vertex-ai/pricing" target="_blank" rel="noopener" class="source-link" aria-label="Google Cloud Vertex AI official pricing documentation">
                         <img src="https://img.icons8.com/color/48/google-cloud.png" alt="Google Cloud" class="footer-icon">
                         <span>Google Cloud</span>
                     </a>
+                    <a href="https://mistral.ai/technology/" target="_blank" rel="noopener" class="source-link" aria-label="Mistral AI official pricing documentation">
+                        <img src="https://img.icons8.com/color/48/artificial-intelligence.png" alt="Mistral" class="footer-icon">
+                        <span>Mistral AI</span>
+                    </a>
                 </div>
-                <p class="update-note">All pricing data sourced from official provider documentation and updated regularly.</p>
+                <p class="update-note">⚡ All pricing sourced from official provider documentation and updated regularly.</p>
             </nav>
         </section>
         <div class="footer-credits">
-            <p>&copy; 2026 AI Model Pricing Calculator. Built by <a href="https://github.com/mohitmehral" target="_blank" rel="noopener">Mohit Mehral</a></p>
+            <p>© 2026 AI Model Pricing Calculator &mdash; Built by <a href="https://github.com/mohitmehral" target="_blank" rel="noopener">Mohit Mehral</a> &mdash; <span class="neon">Free forever</span></p>
         </div>
     </footer>
 
