@@ -92,9 +92,6 @@
     }
     </script>
     
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5228411604893151"
-         crossorigin="anonymous"></script>
     
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -150,8 +147,21 @@
                             </h2>
                             <p class="calc-desc">Enter your prompt and expected output — costs update live as you type</p>
                         </div>
-                        <div class="pricing-updated">Last updated: <time id="calc-last-updated">Loading...</time></div>
+                        <div class="calc-header-right">
+                            <span class="live-dot"></span><span class="connect-label">Connect Your Free API</span>
+                            <button id="gemini-connect-btn" class="gemini-btn" onclick="geminiAuth.connect('gemini')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                <span id="gemini-btn-text">Gemini</span>
+                            </button>
+                            <button id="grok-connect-btn" class="grok-btn-nav" onclick="geminiAuth.connect('grok')">
+                                <svg class="grok-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                <span id="grok-btn-text">Grok</span>
+                            </button>
+                            <button id="gemini-generate-btn" class="generate-btn-inline hidden" onclick="geminiAuth.generate()">⚡ Generate</button>
+                            <button id="expand-calc-btn" class="expand-btn" onclick="toggleExpandCalc()" title="Expand calculator">⛶</button>
+                        </div>
                     </div>
+                    <p class="security-note hidden" id="security-note">🔒 Session only · Never stored · Cleared on tab close</p>
                     <div class="token-info-tooltip" id="token-info-tooltip">
                         <strong>What are Tokens?</strong><br>
                         When you run inference with AI models, you're charged for the number of tokens in your input and output. Tokens are text pieces that models process - different providers count tokens differently. Use this calculator to estimate token counts and refine your prompts to optimize costs and stay within quotas.
@@ -285,6 +295,7 @@ This tool helps developers, businesses, and researchers make informed decisions 
                     <h3 class="sr-only">AI Model Pricing Cards</h3>
                     <!-- Models will be populated by JavaScript -->
                 </section>
+                <div class="pricing-updated-bottom">Latest updated price: <time id="calc-last-updated">Loading...</time></div>
             </div>
             
         </section>
@@ -411,11 +422,38 @@ This tool helps developers, businesses, and researchers make informed decisions 
         </div>
     </section>
 
+
+    <!-- Sponsor Section -->
+    <section class="sponsor-section">
+        <div class="sponsor-inner">
+            <div class="sponsor-slot">
+                <div class="sponsor-badge">Sponsor Slot</div>
+                <p class="sponsor-text">Your brand here — reach 1000s of AI developers monthly</p>
+                <a href="mailto:mohitmehral@gmail.com?subject=Sponsorship%20Inquiry%20-%20AI%20Pricing%20Calculator" class="sponsor-cta">Get in Touch</a>
+            </div>
+            <div class="sponsor-divider"></div>
+            <div class="sponsor-support">
+                <p class="support-title">Support this project</p>
+                <p class="support-desc">Free forever. If this tool saves you time, consider supporting its development.</p>
+                <div class="support-links">
+                    <a href="https://github.com/sponsors/mohitmehral" target="_blank" rel="noopener" class="support-btn github-sponsor">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.565 20.565 0 008 13.393a20.561 20.561 0 003.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.75.75 0 01-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5z"/></svg>
+                        Sponsor on GitHub
+                    </a>
+                    <a href="https://buymeacoffee.com/mohitmehral" target="_blank" rel="noopener" class="support-btn coffee-btn">
+                        ☕ Buy me a coffee
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <section class="pricing-info">
             <nav class="official-sources" aria-label="Official AI Provider Documentation">
                 <div class="section-label">Sources</div>
                 <h3>Official Pricing Documentation</h3>
+                <div class="sources-grid">
                     <a href="https://aws.amazon.com/bedrock/pricing/" target="_blank" rel="noopener" class="source-link" aria-label="AWS Bedrock official pricing documentation">
                         <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="AWS" class="footer-icon">
                         <span>AWS Bedrock</span>
@@ -449,8 +487,262 @@ This tool helps developers, businesses, and researchers make informed decisions 
         </div>
     </footer>
 
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script type="importmap">
+    { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } }
+    </script>
+    <script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+    window.GoogleGenerativeAI = GoogleGenerativeAI;
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/tiktoken@1.0.10/dist/tiktoken.min.js"></script>
-    <script src="script-new.js?v=2026"></script>
+    <script src="script-new.min.js?v=2026"></script>
+    <script>
+    // Google Gemini Integration
+    // Step 1: OAuth for identity/trust
+    // Step 2: User gets free Gemini API key from AI Studio (no credit card)
+    const GOOGLE_CLIENT_ID = '788870211047-17389in7914h4bor388tdj3aj90p4n3a.apps.googleusercontent.com';
+
+    const geminiAuth = {
+        user: null,
+        apiKey: null,
+        provider: 'gemini',
+        selectedProvider: 'gemini',
+
+        connect(provider) {
+            this.selectedProvider = provider || 'gemini';
+            // Check if already has API key in session for this provider
+            const savedKey = sessionStorage.getItem('gemini-api-key');
+            const savedProvider = sessionStorage.getItem('ai-provider');
+            if (savedKey && savedProvider === this.selectedProvider) {
+                this.apiKey = savedKey;
+                this.provider = savedProvider;
+                this.showConnected('Connected');
+                return;
+            }
+            // Start OAuth for identity (Gemini) or go straight to key modal (Grok)
+            if (this.selectedProvider === 'gemini') {
+                const client = google.accounts.oauth2.initTokenClient({
+                    client_id: GOOGLE_CLIENT_ID,
+                    scope: 'https://www.googleapis.com/auth/userinfo.profile',
+                    callback: (response) => {
+                        if (response.access_token) {
+                            this.fetchProfile(response.access_token);
+                        }
+                    },
+                });
+                client.requestAccessToken();
+            } else {
+                this.showKeyModal(null);
+            }
+        },
+
+        fetchProfile(token) {
+            fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(r => r.json())
+            .then(user => {
+                this.user = user;
+                this.showKeyModal(user);
+            })
+            .catch(() => this.showKeyModal(null));
+        },
+
+        showKeyModal(user) {
+            const name = user?.given_name || 'there';
+            const provider = this.selectedProvider;
+            const isGrok = provider === 'grok';
+            const modal = document.createElement('div');
+            modal.id = 'gemini-modal';
+            modal.innerHTML = `
+                <div class="gm-overlay" onclick="document.getElementById('gemini-modal').remove()"></div>
+                <div class="gm-dialog">
+                    <button class="gm-close" onclick="document.getElementById('gemini-modal').remove()">&times;</button>
+                    <h3>${isGrok ? '⚡ Connect Grok' : `Hi ${name}! Connect Gemini`}</h3>
+                    <p class="gm-desc">${isGrok ? 'Get your free Grok API key — no credit card needed.' : 'Get your free Gemini API key from Google AI Studio.'}</p>
+                    <a href="${isGrok ? 'https://console.x.ai' : 'https://aistudio.google.com/apikey'}" target="_blank" rel="noopener" class="gm-studio-btn ${isGrok ? 'grok-btn' : ''}">
+                        Get Free ${isGrok ? 'Grok' : 'Gemini'} Key ↗
+                    </a>
+                    <p class="provider-info">${isGrok ? '60 req/min · $25/mo free credits · Grok-3 Mini' : '1M tokens/day · 15 req/min · Gemini 2.0 Flash'}</p>
+                    <div class="gm-input-wrap">
+                        <label>Paste your key below:</label>
+                        <input type="password" id="gemini-key-input" placeholder="${isGrok ? 'xai-...' : 'AIzaSy...'}" autocomplete="off">
+                        <p class="gm-note">🔒 Stored in session only. Cleared when you close the tab. Sent only to ${isGrok ? 'Grok' : 'Google'}’s API.</p>
+                    </div>
+                    <button class="gm-save-btn" onclick="geminiAuth.saveKey()">Connect & Start</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        },
+
+        saveKey() {
+            const input = document.getElementById('gemini-key-input');
+            const key = input.value.trim();
+            const provider = this.selectedProvider || 'gemini';
+
+            if (!key) {
+                input.style.borderColor = '#ff5050';
+                return;
+            }
+            if (provider === 'gemini' && !key.startsWith('AIza')) {
+                input.style.borderColor = '#ff5050';
+                input.placeholder = 'Gemini key starts with AIza...';
+                return;
+            }
+            if (provider === 'grok' && !key.startsWith('xai-')) {
+                input.style.borderColor = '#ff5050';
+                input.placeholder = 'Grok key starts with xai-...';
+                return;
+            }
+
+            this.apiKey = key;
+            this.provider = provider;
+            sessionStorage.setItem('gemini-api-key', key);
+            sessionStorage.setItem('ai-provider', provider);
+            document.getElementById('gemini-modal').remove();
+            this.showConnected(this.user?.given_name || 'Connected');
+        },
+
+        showConnected(name) {
+            const isGrok = this.provider === 'grok';
+            const geminiBtn = document.getElementById('gemini-connect-btn');
+            const grokBtn = document.getElementById('grok-connect-btn');
+            if (isGrok) {
+                grokBtn.classList.add('connected');
+                document.getElementById('grok-btn-text').textContent = name;
+                grokBtn.onclick = () => this.disconnect();
+                grokBtn.title = 'Click to disconnect';
+            } else {
+                geminiBtn.classList.add('connected');
+                document.getElementById('gemini-btn-text').textContent = name;
+                geminiBtn.onclick = () => this.disconnect();
+                geminiBtn.title = 'Click to disconnect';
+            }
+            document.getElementById('gemini-generate-btn').classList.remove('hidden');
+            document.getElementById('security-note').classList.remove('hidden');
+            document.getElementById('ai-rt-arrow').classList.add('hidden');
+            document.querySelector('.ai-realtime-block').style.borderStyle = 'solid';
+            document.querySelector('.ai-realtime-block').style.animation = 'none';
+        },
+
+        disconnect() {
+            this.apiKey = null;
+            this.user = null;
+            this.provider = null;
+            sessionStorage.removeItem('gemini-api-key');
+            sessionStorage.removeItem('ai-provider');
+            const geminiBtn = document.getElementById('gemini-connect-btn');
+            const grokBtn = document.getElementById('grok-connect-btn');
+            geminiBtn.classList.remove('connected');
+            grokBtn.classList.remove('connected');
+            document.getElementById('gemini-btn-text').textContent = 'Gemini';
+            document.getElementById('grok-btn-text').textContent = 'Grok';
+            geminiBtn.onclick = () => this.connect('gemini');
+            grokBtn.onclick = () => this.connect('grok');
+            geminiBtn.title = '';
+            grokBtn.title = '';
+            document.getElementById('gemini-generate-btn').classList.add('hidden');
+            document.getElementById('security-note').classList.add('hidden');
+            document.getElementById('ai-rt-arrow').classList.remove('hidden');
+            document.querySelector('.ai-realtime-block').style.borderStyle = 'dashed';
+            document.querySelector('.ai-realtime-block').style.animation = 'softGlow 3s ease infinite';
+        },
+
+        async generate() {
+            if (!this.apiKey) { this.connect(); return; }
+
+            const input = document.getElementById('input-text').value.trim();
+            if (!input) return;
+
+            const btn = document.getElementById('gemini-generate-btn');
+            const outputEl = document.getElementById('output-text');
+            btn.disabled = true;
+            btn.textContent = '⏳ Generating...';
+            outputEl.value = 'Generating response...';
+
+            try {
+                let text;
+                if (this.provider === 'grok') {
+                    text = await this.callGrok(input);
+                } else {
+                    text = await this.callGemini(input);
+                }
+                outputEl.value = text || 'No response generated.';
+                outputEl.dispatchEvent(new Event('input'));
+                if (typeof app !== 'undefined') app.calculateTokens();
+            } catch (err) {
+                const msg = err.message || '';
+                if (msg.includes('quota') || msg.includes('429') || msg.includes('retry') || msg.includes('rate_limit')) {
+                    const wait = msg.match(/(\d+\.?\d*)s/);
+                    outputEl.value = `⏳ Rate limit hit. Please wait ${wait ? wait[1] : '15'}s and try again.`;
+                } else if (msg.includes('API_KEY_INVALID') || msg.includes('401') || msg.includes('invalid_api_key') || msg.includes('API key not valid')) {
+                    sessionStorage.removeItem('gemini-api-key');
+                    sessionStorage.removeItem('ai-provider');
+                    this.apiKey = null;
+                    outputEl.value = 'Invalid API key. Please reconnect.';
+                    this.disconnect();
+                } else if (msg.includes('SDK still loading')) {
+                    outputEl.value = msg;
+                } else {
+                    outputEl.value = `Error: ${msg}`;
+                }
+                console.error('AI error:', err);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '⚡ Get Real Response';
+            }
+        },
+
+        async callGemini(input) {
+            if (typeof GoogleGenerativeAI === 'undefined') {
+                throw new Error('AI SDK still loading. Please wait a moment and try again.');
+            }
+            const genAI = new GoogleGenerativeAI(this.apiKey);
+            const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+            const result = await model.generateContent(input);
+            return result.response.text();
+        },
+
+        async callGrok(input) {
+            const res = await fetch('https://api.x.ai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${this.apiKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'grok-3-mini',
+                    messages: [{ role: 'user', content: input }],
+                    max_tokens: 1024
+                })
+            });
+            const data = await res.json();
+            if (data.error) throw new Error(data.error.message || 'Grok API error');
+            return data.choices?.[0]?.message?.content || 'No response.';
+        }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedKey = sessionStorage.getItem('gemini-api-key');
+        const savedProvider = sessionStorage.getItem('ai-provider');
+        if (savedKey) {
+            geminiAuth.apiKey = savedKey;
+            geminiAuth.provider = savedProvider || 'gemini';
+            geminiAuth.showConnected('Connected');
+        }
+    });
+
+
+    // Expand/Collapse Calculator
+    function toggleExpandCalc() {
+        const calc = document.getElementById('calculator-section');
+        const btn = document.getElementById('expand-calc-btn');
+        calc.classList.toggle('expanded');
+        btn.textContent = calc.classList.contains('expanded') ? '✖' : '⛶';
+        btn.title = calc.classList.contains('expanded') ? 'Collapse calculator' : 'Expand calculator';
+    }
+    </script>
     <script>
     document.querySelectorAll('.svc-tab').forEach(btn => {
         btn.addEventListener('click', () => {
