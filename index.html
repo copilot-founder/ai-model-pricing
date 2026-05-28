@@ -454,27 +454,27 @@ This tool helps developers, businesses, and researchers make informed decisions 
                 <div class="section-label">Sources</div>
                 <h3>Official Pricing Documentation</h3>
                 <div class="sources-grid">
-                    <a href="https://aws.amazon.com/bedrock/pricing/" target="_blank" rel="noopener" class="source-link" aria-label="AWS Bedrock official pricing documentation">
+                    <a href="https://aws.amazon.com/bedrock/pricing/?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=aws_bedrock" target="_blank" rel="noopener" class="source-link" aria-label="AWS Bedrock official pricing documentation">
                         <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="AWS" class="footer-icon">
                         <span>AWS Bedrock</span>
                     </a>
-                    <a href="https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/" target="_blank" rel="noopener" class="source-link" aria-label="Azure OpenAI official pricing documentation">
+                    <a href="https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=azure_openai" target="_blank" rel="noopener" class="source-link" aria-label="Azure OpenAI official pricing documentation">
                         <img src="https://img.icons8.com/fluency/48/azure-1.png" alt="Azure" class="footer-icon">
                         <span>Azure OpenAI</span>
                     </a>
-                    <a href="https://openai.com/pricing" target="_blank" rel="noopener" class="source-link" aria-label="OpenAI official pricing documentation">
+                    <a href="https://openai.com/pricing?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=openai" target="_blank" rel="noopener" class="source-link" aria-label="OpenAI official pricing documentation">
                         <img src="https://img.icons8.com/ios/50/chatgpt.png" alt="OpenAI" class="footer-icon icon-invert">
                         <span>OpenAI</span>
                     </a>
-                    <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener" class="source-link" aria-label="Anthropic Claude official pricing documentation">
+                    <a href="https://www.anthropic.com/pricing?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=anthropic" target="_blank" rel="noopener" class="source-link" aria-label="Anthropic Claude official pricing documentation">
                         <img src="https://img.icons8.com/ios/50/claude.png" alt="Anthropic" class="footer-icon icon-invert">
                         <span>Anthropic</span>
                     </a>
-                    <a href="https://cloud.google.com/vertex-ai/pricing" target="_blank" rel="noopener" class="source-link" aria-label="Google Cloud Vertex AI official pricing documentation">
+                    <a href="https://cloud.google.com/vertex-ai/pricing?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=gcp_vertex" target="_blank" rel="noopener" class="source-link" aria-label="Google Cloud Vertex AI official pricing documentation">
                         <img src="https://img.icons8.com/color/48/google-cloud.png" alt="Google Cloud" class="footer-icon">
                         <span>Google Cloud</span>
                     </a>
-                    <a href="https://mistral.ai/technology/" target="_blank" rel="noopener" class="source-link" aria-label="Mistral AI official pricing documentation">
+                    <a href="https://mistral.ai/technology/?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=mistral" target="_blank" rel="noopener" class="source-link" aria-label="Mistral AI official pricing documentation">
                         <img src="https://img.icons8.com/color/48/artificial-intelligence.png" alt="Mistral" class="footer-icon">
                         <span>Mistral AI</span>
                     </a>
@@ -742,6 +742,20 @@ This tool helps developers, businesses, and researchers make informed decisions 
         btn.textContent = calc.classList.contains('expanded') ? '✖' : '⛶';
         btn.title = calc.classList.contains('expanded') ? 'Collapse calculator' : 'Expand calculator';
     }
+
+    // Track outbound clicks to provider links
+    document.querySelectorAll('.source-link, .learn-btn, .ptile').forEach(link => {
+        link.addEventListener('click', function() {
+            const url = this.href || this.getAttribute('href');
+            if (url && typeof gtag !== 'undefined') {
+                gtag('event', 'click', {
+                    event_category: 'outbound',
+                    event_label: url,
+                    transport_type: 'beacon'
+                });
+            }
+        });
+    });
     </script>
     <script>
     document.querySelectorAll('.svc-tab').forEach(btn => {
