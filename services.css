@@ -3,10 +3,12 @@
     --bg-secondary: #111118;
     --bg-card: #16161f;
     --bg-hover: #1e1e2a;
-    --neon: #00ff88;
-    --neon-dim: #00cc6a;
-    --neon-glow: rgba(0, 255, 136, 0.15);
-    --neon-glow-strong: rgba(0, 255, 136, 0.3);
+    --neon: #5ee9a4;
+    --neon-dim: #46c88a;
+    --neon-teal: #3ed0c4;
+    --neon-gradient: linear-gradient(135deg, #5ee9a4 0%, #3ed0c4 100%);
+    --neon-glow: rgba(94, 233, 164, 0.12);
+    --neon-glow-strong: rgba(94, 233, 164, 0.22);
     --text-primary: #e8e8f0;
     --text-secondary: #9999aa;
     --text-muted: #666677;
@@ -158,8 +160,8 @@ main {
     color: var(--text-primary);
 }
 .tab-btn.active {
-    background: var(--neon);
-    color: var(--bg-primary);
+    background: var(--neon-gradient);
+    color: #06201a;
     border-color: var(--neon);
     box-shadow: 0 0 15px var(--neon-glow);
     font-weight: 700;
