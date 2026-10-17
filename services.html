@@ -3,436 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Services Hub - AWS, Azure, OpenAI, Anthropic & Google Cloud AI Services</title>
-    <meta name="description" content="Comprehensive directory of AI services from AWS Bedrock, Azure OpenAI, Google Cloud Vertex AI, OpenAI, and Anthropic. Filter by Text AI, Image AI, and Speech AI services.">
-    <meta name="keywords" content="AI services, AWS AI services, Azure AI services, Google Cloud AI, OpenAI services, Anthropic Claude, text AI, image AI, speech AI, machine learning services">
+    <title>AI Services Hub - AWS, Azure, OpenAI, Anthropic, Google Cloud & Mistral AI Services</title>
+    <meta name="description" content="Comprehensive directory of 30+ AI services from AWS Bedrock, Azure OpenAI, Google Cloud Vertex AI, OpenAI, Anthropic & Mistral. Filter by Text AI, Image AI, Speech AI, and Code AI.">
+    <meta name="keywords" content="AI services directory, AWS AI, Azure AI, Google Cloud AI, OpenAI, Anthropic Claude, Mistral AI, text AI, image AI, speech AI, code AI">
     <meta name="author" content="Mohit Mehral">
     <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0a0a0f">
     <link rel="canonical" href="https://mohitmehral.github.io/ai-model-pricing/services.html">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mohitmehral.github.io/ai-model-pricing/services.html">
-    <meta property="og:title" content="AI Services Hub - Complete Directory of AI Services">
-    <meta property="og:description" content="Explore 23+ AI services from AWS, Azure, OpenAI, Anthropic & Google Cloud. Filter by Text AI, Image AI, and Speech AI capabilities.">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "AI Services Hub",
-      "description": "Comprehensive directory of AI services from major cloud providers including AWS, Azure, Google Cloud, OpenAI, and Anthropic.",
-      "url": "https://mohitmehral.github.io/ai-model-pricing/services.html",
-      "mainEntity": {
-        "@type": "ItemList",
-        "name": "AI Services Directory",
-        "numberOfItems": 23,
-        "itemListElement": [
-          {
-            "@type": "SoftwareApplication",
-            "name": "Amazon Bedrock",
-            "applicationCategory": "AI Platform",
-            "operatingSystem": "Cloud"
-          }
-        ]
-      }
-    }
-    </script>
-    
     <link rel="stylesheet" href="services.css">
 </head>
 <body>
+
+    <nav class="topnav">
+        <div class="topnav-inner">
+            <a href="index.html" class="topnav-logo">⚡ AI Pricing</a>
+            <div class="topnav-links">
+                <a href="index.html">Calculator</a>
+                <a href="#services">Services</a>
+                <a href="https://github.com/mohitmehral" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+        </div>
+    </nav>
+
     <header>
         <div class="header-content">
-            <h1>AI Services Hub</h1>
-            <p>Discover the perfect AI service for your needs</p>
-            <nav>
-                <a href="index.html" class="back-btn">← Pricing Calculator</a>
-            </nav>
+            <h1>AI <span class="neon">Services</span> Hub</h1>
+            <p>Discover the right AI service for your use case — all providers, one place</p>
+            <div class="header-stats">
+                <div class="header-stat"><span>30+</span><span>Services</span></div>
+                <div class="header-stat"><span>6</span><span>Providers</span></div>
+                <div class="header-stat"><span>5</span><span>Categories</span></div>
+            </div>
+            <a href="index.html" class="back-btn">← Back to Pricing Calculator</a>
         </div>
     </header>
 
     <main>
-        <div class="filter-tabs">
+        <div class="filter-tabs" id="services">
             <button class="tab-btn active" data-filter="all">All Services</button>
             <button class="tab-btn" data-filter="aws">AWS</button>
+            <button class="tab-btn" data-filter="azure">Azure</button>
+            <button class="tab-btn" data-filter="openai">OpenAI</button>
+            <button class="tab-btn" data-filter="anthropic">Anthropic</button>
+            <button class="tab-btn" data-filter="gcp">Google</button>
+            <button class="tab-btn" data-filter="mistral">Mistral</button>
             <button class="tab-btn" data-filter="text">Text AI</button>
             <button class="tab-btn" data-filter="image">Image AI</button>
             <button class="tab-btn" data-filter="speech">Speech AI</button>
+            <button class="tab-btn" data-filter="code">Code AI</button>
         </div>
 
         <div class="services-grid">
-            <!-- AWS Services -->
-            <div class="service-card aws text" data-category="aws text">
-                <div class="card-header">
-                    <div class="provider-badge aws">AWS</div>
-                </div>
-                <h3>Amazon Bedrock</h3>
-                <p>Access foundation models like Claude, GPT, and more through a single API</p>
-                <div class="features">
-                    <span class="feature-tag">Foundation Models</span>
-                    <span class="feature-tag">API Access</span>
-                </div>
-                <a href="https://aws.amazon.com/bedrock/" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <!-- AWS -->
+            <div class="service-card aws text" data-category="aws text"><div class="card-header"><div class="provider-badge aws">AWS</div></div><h3>Amazon Bedrock</h3><p>Access Claude, Llama, Mistral & more through a unified serverless API</p><div class="features"><span class="feature-tag">Foundation Models</span><span class="feature-tag">Serverless</span><span class="feature-tag">RAG</span></div><a href="https://aws.amazon.com/bedrock/" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card aws text image" data-category="aws text image">
-                <div class="card-header">
-                    <div class="provider-badge aws">AWS</div>
-                </div>
-                <h3>Amazon SageMaker</h3>
-                <p>Complete ML platform to build, train, and deploy models at any scale</p>
-                <div class="features">
-                    <span class="feature-tag">MLOps</span>
-                    <span class="feature-tag">Auto Scaling</span>
-                </div>
-                <a href="https://aws.amazon.com/sagemaker/" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card aws text image" data-category="aws text image"><div class="card-header"><div class="provider-badge aws">AWS</div></div><h3>Amazon SageMaker</h3><p>Build, train, and deploy ML models at scale with MLOps</p><div class="features"><span class="feature-tag">MLOps</span><span class="feature-tag">Training</span><span class="feature-tag">Deployment</span></div><a href="https://aws.amazon.com/sagemaker/" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card aws text" data-category="aws text">
-                <div class="card-header">
-                    <div class="provider-badge aws">AWS</div>
-                </div>
-                <h3>Amazon Comprehend</h3>
-                <p>Extract insights from text using natural language processing</p>
-                <div class="features">
-                    <span class="feature-tag">NLP</span>
-                    <span class="feature-tag">Sentiment Analysis</span>
-                </div>
-                <a href="https://aws.amazon.com/comprehend/" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card aws text" data-category="aws text"><div class="card-header"><div class="provider-badge aws">AWS</div></div><h3>Amazon Comprehend</h3><p>NLP service for sentiment analysis, entity recognition & topic modeling</p><div class="features"><span class="feature-tag">NLP</span><span class="feature-tag">Sentiment</span></div><a href="https://aws.amazon.com/comprehend/" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card aws image" data-category="aws image">
-                <div class="card-header">
-                    <div class="provider-badge aws">AWS</div>
-                </div>
-                <h3>Amazon Rekognition</h3>
-                <p>Analyze images and videos to detect objects, faces, and activities</p>
-                <div class="features">
-                    <span class="feature-tag">Computer Vision</span>
-                    <span class="feature-tag">Face Detection</span>
-                </div>
-                <a href="https://aws.amazon.com/rekognition/" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card aws image" data-category="aws image"><div class="card-header"><div class="provider-badge aws">AWS</div></div><h3>Amazon Rekognition</h3><p>Image & video analysis — faces, objects, scenes, and activities</p><div class="features"><span class="feature-tag">Computer Vision</span><span class="feature-tag">Video</span></div><a href="https://aws.amazon.com/rekognition/" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card aws text" data-category="aws text">
-                <div class="card-header">
-                    <div class="provider-badge aws">AWS</div>
-                </div>
-                <h3>Amazon Textract</h3>
-                <p>Extract text and data from documents using OCR and ML</p>
-                <div class="features">
-                    <span class="feature-tag">OCR</span>
-                    <span class="feature-tag">Document Analysis</span>
-                </div>
-                <a href="https://aws.amazon.com/textract/" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card aws text" data-category="aws text"><div class="card-header"><div class="provider-badge aws">AWS</div></div><h3>Amazon Textract</h3><p>Extract text, tables, and forms from documents with ML-powered OCR</p><div class="features"><span class="feature-tag">OCR</span><span class="feature-tag">Document AI</span></div><a href="https://aws.amazon.com/textract/" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card aws speech" data-category="aws speech">
-                <div class="card-header">
-                    <div class="provider-badge aws">AWS</div>
-                </div>
-                <h3>Amazon Polly</h3>
-                <p>Turn text into lifelike speech using deep learning</p>
-                <div class="features">
-                    <span class="feature-tag">Text-to-Speech</span>
-                    <span class="feature-tag">Neural Voices</span>
-                </div>
-                <a href="https://aws.amazon.com/polly/" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card aws speech" data-category="aws speech"><div class="card-header"><div class="provider-badge aws">AWS</div></div><h3>Amazon Polly</h3><p>Neural text-to-speech with 60+ voices in 30+ languages</p><div class="features"><span class="feature-tag">TTS</span><span class="feature-tag">Neural Voices</span></div><a href="https://aws.amazon.com/polly/" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card aws speech" data-category="aws speech">
-                <div class="card-header">
-                    <div class="provider-badge aws">AWS</div>
-                </div>
-                <h3>Amazon Transcribe</h3>
-                <p>Automatic speech recognition service for audio to text conversion</p>
-                <div class="features">
-                    <span class="feature-tag">Speech-to-Text</span>
-                    <span class="feature-tag">Real-time</span>
-                </div>
-                <a href="https://aws.amazon.com/transcribe/" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card aws speech" data-category="aws speech"><div class="card-header"><div class="provider-badge aws">AWS</div></div><h3>Amazon Transcribe</h3><p>Real-time and batch speech-to-text with speaker identification</p><div class="features"><span class="feature-tag">STT</span><span class="feature-tag">Real-time</span></div><a href="https://aws.amazon.com/transcribe/" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card aws text" data-category="aws text">
-                <div class="card-header">
-                    <div class="provider-badge aws">AWS</div>
-                </div>
-                <h3>Amazon Translate</h3>
-                <p>Neural machine translation service for real-time language translation</p>
-                <div class="features">
-                    <span class="feature-tag">Translation</span>
-                    <span class="feature-tag">75+ Languages</span>
-                </div>
-                <a href="https://aws.amazon.com/translate/" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card aws code" data-category="aws code"><div class="card-header"><div class="provider-badge aws">AWS</div></div><h3>Amazon Q Developer</h3><p>AI coding assistant for code generation, debugging & transformation</p><div class="features"><span class="feature-tag">Code Gen</span><span class="feature-tag">IDE Plugin</span></div><a href="https://aws.amazon.com/q/developer/" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <!-- Azure Services -->
-            <div class="service-card azure text" data-category="azure text">
-                <div class="card-header">
-                    <div class="provider-badge azure">Azure</div>
-                </div>
-                <h3>Azure OpenAI</h3>
-                <p>Enterprise-grade OpenAI models with Azure security and compliance</p>
-                <div class="features">
-                    <span class="feature-tag">Enterprise</span>
-                    <span class="feature-tag">Compliance</span>
-                </div>
-                <a href="https://azure.microsoft.com/en-us/products/ai-services/openai-service" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <!-- Azure -->
+            <div class="service-card azure text" data-category="azure text"><div class="card-header"><div class="provider-badge azure">Azure</div></div><h3>Azure OpenAI Service</h3><p>Enterprise GPT-5.3, o3, DALL-E with Azure security & compliance</p><div class="features"><span class="feature-tag">Enterprise</span><span class="feature-tag">Compliance</span></div><a href="https://azure.microsoft.com/en-us/products/ai-services/openai-service" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card azure text image" data-category="azure text image">
-                <div class="card-header">
-                    <div class="provider-badge azure">Azure</div>
-                </div>
-                <h3>Azure Machine Learning</h3>
-                <p>End-to-end ML lifecycle management and model deployment</p>
-                <div class="features">
-                    <span class="feature-tag">MLOps</span>
-                    <span class="feature-tag">AutoML</span>
-                </div>
-                <a href="https://azure.microsoft.com/en-us/products/machine-learning" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card azure text image" data-category="azure text image"><div class="card-header"><div class="provider-badge azure">Azure</div></div><h3>Azure Machine Learning</h3><p>End-to-end ML lifecycle with AutoML, MLOps & responsible AI</p><div class="features"><span class="feature-tag">AutoML</span><span class="feature-tag">MLOps</span></div><a href="https://azure.microsoft.com/en-us/products/machine-learning" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card azure image" data-category="azure image">
-                <div class="card-header">
-                    <div class="provider-badge azure">Azure</div>
-                </div>
-                <h3>Azure Computer Vision</h3>
-                <p>Analyze images and extract information with AI-powered vision</p>
-                <div class="features">
-                    <span class="feature-tag">OCR</span>
-                    <span class="feature-tag">Object Detection</span>
-                </div>
-                <a href="https://azure.microsoft.com/en-us/products/ai-services/computer-vision" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card azure image" data-category="azure image"><div class="card-header"><div class="provider-badge azure">Azure</div></div><h3>Azure AI Vision</h3><p>Image analysis, OCR, spatial analysis & custom vision models</p><div class="features"><span class="feature-tag">OCR</span><span class="feature-tag">Custom Models</span></div><a href="https://azure.microsoft.com/en-us/products/ai-services/ai-vision" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card azure speech" data-category="azure speech">
-                <div class="card-header">
-                    <div class="provider-badge azure">Azure</div>
-                </div>
-                <h3>Azure Speech Services</h3>
-                <p>Speech-to-text, text-to-speech, and speech translation</p>
-                <div class="features">
-                    <span class="feature-tag">Speech Recognition</span>
-                    <span class="feature-tag">Voice Synthesis</span>
-                </div>
-                <a href="https://azure.microsoft.com/en-us/products/ai-services/speech-to-text" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card azure speech" data-category="azure speech"><div class="card-header"><div class="provider-badge azure">Azure</div></div><h3>Azure AI Speech</h3><p>Speech-to-text, text-to-speech, translation & speaker recognition</p><div class="features"><span class="feature-tag">STT</span><span class="feature-tag">TTS</span><span class="feature-tag">Translation</span></div><a href="https://azure.microsoft.com/en-us/products/ai-services/ai-speech" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card azure text" data-category="azure text">
-                <div class="card-header">
-                    <div class="provider-badge azure">Azure</div>
-                </div>
-                <h3>Azure Language Understanding</h3>
-                <p>Build natural language understanding into apps and bots</p>
-                <div class="features">
-                    <span class="feature-tag">Intent Recognition</span>
-                    <span class="feature-tag">Entity Extraction</span>
-                </div>
-                <a href="https://azure.microsoft.com/en-us/products/ai-services/language-understanding" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card azure code" data-category="azure code"><div class="card-header"><div class="provider-badge azure">Azure</div></div><h3>GitHub Copilot</h3><p>AI pair programmer for code completion, chat & pull request summaries</p><div class="features"><span class="feature-tag">Code Gen</span><span class="feature-tag">Chat</span><span class="feature-tag">PR Review</span></div><a href="https://github.com/features/copilot" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card azure text" data-category="azure text">
-                <div class="card-header">
-                    <div class="provider-badge azure">Azure</div>
-                </div>
-                <h3>Azure Translator</h3>
-                <p>Real-time text translation across 100+ languages</p>
-                <div class="features">
-                    <span class="feature-tag">Translation</span>
-                    <span class="feature-tag">100+ Languages</span>
-                </div>
-                <a href="https://azure.microsoft.com/en-us/products/ai-services/translator" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <!-- OpenAI -->
+            <div class="service-card openai text" data-category="openai text"><div class="card-header"><div class="provider-badge openai">OpenAI</div></div><h3>GPT-5.3 / o3</h3><p>Most advanced language models for reasoning, chat & code generation</p><div class="features"><span class="feature-tag">Reasoning</span><span class="feature-tag">256K Context</span></div><a href="https://platform.openai.com/docs/models" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <!-- OpenAI Services -->
-            <div class="service-card openai text" data-category="openai text">
-                <div class="card-header">
-                    <div class="provider-badge openai">OpenAI</div>
-                </div>
-                <h3>GPT Models</h3>
-                <p>Advanced language models for chat, completion, and text generation</p>
-                <div class="features">
-                    <span class="feature-tag">Chat</span>
-                    <span class="feature-tag">Code Generation</span>
-                </div>
-                <a href="https://platform.openai.com/docs/models" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card openai image" data-category="openai image"><div class="card-header"><div class="provider-badge openai">OpenAI</div></div><h3>DALL-E 3</h3><p>Generate and edit photorealistic images from text descriptions</p><div class="features"><span class="feature-tag">Image Gen</span><span class="feature-tag">Editing</span></div><a href="https://platform.openai.com/docs/guides/images" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card openai image" data-category="openai image">
-                <div class="card-header">
-                    <div class="provider-badge openai">OpenAI</div>
-                </div>
-                <h3>DALL-E</h3>
-                <p>Create stunning images from text descriptions using AI</p>
-                <div class="features">
-                    <span class="feature-tag">Image Generation</span>
-                    <span class="feature-tag">Creative AI</span>
-                </div>
-                <a href="https://platform.openai.com/docs/guides/images" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card openai speech" data-category="openai speech"><div class="card-header"><div class="provider-badge openai">OpenAI</div></div><h3>Whisper</h3><p>Multilingual speech recognition and transcription</p><div class="features"><span class="feature-tag">STT</span><span class="feature-tag">Multilingual</span></div><a href="https://platform.openai.com/docs/guides/speech-to-text" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card openai speech" data-category="openai speech">
-                <div class="card-header">
-                    <div class="provider-badge openai">OpenAI</div>
-                </div>
-                <h3>Whisper</h3>
-                <p>Automatic speech recognition system for audio transcription</p>
-                <div class="features">
-                    <span class="feature-tag">Speech-to-Text</span>
-                    <span class="feature-tag">Multilingual</span>
-                </div>
-                <a href="https://platform.openai.com/docs/guides/speech-to-text" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card openai text" data-category="openai text"><div class="card-header"><div class="provider-badge openai">OpenAI</div></div><h3>Embeddings</h3><p>Text embeddings for semantic search, clustering & RAG pipelines</p><div class="features"><span class="feature-tag">Vector Search</span><span class="feature-tag">RAG</span></div><a href="https://platform.openai.com/docs/guides/embeddings" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card openai text" data-category="openai text">
-                <div class="card-header">
-                    <div class="provider-badge openai">OpenAI</div>
-                </div>
-                <h3>Embeddings</h3>
-                <p>Text embeddings for similarity search and semantic understanding</p>
-                <div class="features">
-                    <span class="feature-tag">Vector Search</span>
-                    <span class="feature-tag">Semantic Analysis</span>
-                </div>
-                <a href="https://platform.openai.com/docs/guides/embeddings" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card openai code" data-category="openai code"><div class="card-header"><div class="provider-badge openai">OpenAI</div></div><h3>Codex / GPT Code</h3><p>AI code generation, debugging, and natural language to code</p><div class="features"><span class="feature-tag">Code Gen</span><span class="feature-tag">Debugging</span></div><a href="https://platform.openai.com/docs/guides/code-generation" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card openai text" data-category="openai text">
-                <div class="card-header">
-                    <div class="provider-badge openai">OpenAI</div>
-                </div>
-                <h3>Fine-tuning</h3>
-                <p>Customize models for specific use cases and domains</p>
-                <div class="features">
-                    <span class="feature-tag">Custom Models</span>
-                    <span class="feature-tag">Domain Specific</span>
-                </div>
-                <a href="https://platform.openai.com/docs/guides/fine-tuning" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <!-- Anthropic -->
+            <div class="service-card anthropic text" data-category="anthropic text"><div class="card-header"><div class="provider-badge anthropic">Anthropic</div></div><h3>Claude 4.6</h3><p>Most capable Claude model — 500K context, advanced reasoning & analysis</p><div class="features"><span class="feature-tag">500K Context</span><span class="feature-tag">Reasoning</span></div><a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <!-- Anthropic Services -->
-            <div class="service-card anthropic text" data-category="anthropic text">
-                <div class="card-header">
-                    <div class="provider-badge anthropic">Anthropic</div>
-                </div>
-                <h3>Claude Models</h3>
-                <p>Constitutional AI for helpful, harmless, and honest conversations</p>
-                <div class="features">
-                    <span class="feature-tag">Constitutional AI</span>
-                    <span class="feature-tag">Safety Focused</span>
-                </div>
-                <a href="https://docs.anthropic.com/claude/docs" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card anthropic text code" data-category="anthropic text code"><div class="card-header"><div class="provider-badge anthropic">Anthropic</div></div><h3>Claude API</h3><p>Direct API access with tool use, vision, and computer use capabilities</p><div class="features"><span class="feature-tag">Tool Use</span><span class="feature-tag">Vision</span><span class="feature-tag">Computer Use</span></div><a href="https://docs.anthropic.com/en/api" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card anthropic text" data-category="anthropic text">
-                <div class="card-header">
-                    <div class="provider-badge anthropic">Anthropic</div>
-                </div>
-                <h3>Claude API</h3>
-                <p>Direct API access to Claude models for developers</p>
-                <div class="features">
-                    <span class="feature-tag">API Access</span>
-                    <span class="feature-tag">Developer Tools</span>
-                </div>
-                <a href="https://docs.anthropic.com/claude/reference" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card anthropic code" data-category="anthropic code"><div class="card-header"><div class="provider-badge anthropic">Anthropic</div></div><h3>Claude Code</h3><p>Agentic coding tool for terminal — plan, edit, and commit autonomously</p><div class="features"><span class="feature-tag">Agentic</span><span class="feature-tag">Terminal</span></div><a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <!-- Google Cloud Services -->
-            <div class="service-card gcp text" data-category="gcp text">
-                <div class="card-header">
-                    <div class="provider-badge gcp">Google</div>
-                </div>
-                <h3>Vertex AI</h3>
-                <p>Unified ML platform with pre-trained and custom model capabilities</p>
-                <div class="features">
-                    <span class="feature-tag">AutoML</span>
-                    <span class="feature-tag">MLOps</span>
-                </div>
-                <a href="https://cloud.google.com/vertex-ai" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <!-- Google Cloud -->
+            <div class="service-card gcp text" data-category="gcp text"><div class="card-header"><div class="provider-badge gcp">Google</div></div><h3>Gemini 2.5 Pro</h3><p>Google's most capable model — 1M context, multimodal, thinking mode</p><div class="features"><span class="feature-tag">1M Context</span><span class="feature-tag">Multimodal</span></div><a href="https://cloud.google.com/vertex-ai/generative-ai/docs/models" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card gcp text" data-category="gcp text">
-                <div class="card-header">
-                    <div class="provider-badge gcp">Google</div>
-                </div>
-                <h3>Gemini API</h3>
-                <p>Access Google's most capable AI model through API</p>
-                <div class="features">
-                    <span class="feature-tag">Multimodal</span>
-                    <span class="feature-tag">Long Context</span>
-                </div>
-                <a href="https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card gcp text image" data-category="gcp text image"><div class="card-header"><div class="provider-badge gcp">Google</div></div><h3>Vertex AI</h3><p>Unified ML platform — train, tune, and deploy any model at scale</p><div class="features"><span class="feature-tag">MLOps</span><span class="feature-tag">Model Garden</span></div><a href="https://cloud.google.com/vertex-ai" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card gcp image" data-category="gcp image">
-                <div class="card-header">
-                    <div class="provider-badge gcp">Google</div>
-                </div>
-                <h3>Cloud Vision API</h3>
-                <p>Image analysis and recognition with machine learning</p>
-                <div class="features">
-                    <span class="feature-tag">OCR</span>
-                    <span class="feature-tag">Label Detection</span>
-                </div>
-                <a href="https://cloud.google.com/vision" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card gcp image" data-category="gcp image"><div class="card-header"><div class="provider-badge gcp">Google</div></div><h3>Imagen 3</h3><p>Photorealistic image generation with highest quality output</p><div class="features"><span class="feature-tag">Image Gen</span><span class="feature-tag">Photorealistic</span></div><a href="https://cloud.google.com/vertex-ai/generative-ai/docs/image/overview" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card gcp text" data-category="gcp text">
-                <div class="card-header">
-                    <div class="provider-badge gcp">Google</div>
-                </div>
-                <h3>Natural Language AI</h3>
-                <p>Text analysis and sentiment detection with ML</p>
-                <div class="features">
-                    <span class="feature-tag">Sentiment Analysis</span>
-                    <span class="feature-tag">Entity Recognition</span>
-                </div>
-                <a href="https://cloud.google.com/natural-language" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card gcp speech" data-category="gcp speech"><div class="card-header"><div class="provider-badge gcp">Google</div></div><h3>Cloud Speech AI</h3><p>Speech-to-text and text-to-speech with 125+ languages</p><div class="features"><span class="feature-tag">STT</span><span class="feature-tag">TTS</span><span class="feature-tag">125+ Lang</span></div><a href="https://cloud.google.com/speech-to-text" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card gcp speech" data-category="gcp speech">
-                <div class="card-header">
-                    <div class="provider-badge gcp">Google</div>
-                </div>
-                <h3>Speech-to-Text</h3>
-                <p>Convert audio to text with machine learning</p>
-                <div class="features">
-                    <span class="feature-tag">Real-time</span>
-                    <span class="feature-tag">125+ Languages</span>
-                </div>
-                <a href="https://cloud.google.com/speech-to-text" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card gcp text" data-category="gcp text"><div class="card-header"><div class="provider-badge gcp">Google</div></div><h3>Natural Language AI</h3><p>Entity recognition, sentiment analysis & content classification</p><div class="features"><span class="feature-tag">NLP</span><span class="feature-tag">Sentiment</span></div><a href="https://cloud.google.com/natural-language" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card gcp speech" data-category="gcp speech">
-                <div class="card-header">
-                    <div class="provider-badge gcp">Google</div>
-                </div>
-                <h3>Text-to-Speech</h3>
-                <p>Convert text to natural-sounding speech</p>
-                <div class="features">
-                    <span class="feature-tag">Neural Voices</span>
-                    <span class="feature-tag">WaveNet</span>
-                </div>
-                <a href="https://cloud.google.com/text-to-speech" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <!-- Mistral -->
+            <div class="service-card mistral text" data-category="mistral text"><div class="card-header"><div class="provider-badge mistral">Mistral</div></div><h3>Mistral Large 2</h3><p>128K context flagship model for complex reasoning & multilingual tasks</p><div class="features"><span class="feature-tag">128K Context</span><span class="feature-tag">Multilingual</span></div><a href="https://docs.mistral.ai/getting-started/models/" target="_blank" class="learn-btn">Explore →</a></div>
 
-            <div class="service-card gcp text" data-category="gcp text">
-                <div class="card-header">
-                    <div class="provider-badge gcp">Google</div>
-                </div>
-                <h3>Translation AI</h3>
-                <p>Dynamically translate between languages using ML</p>
-                <div class="features">
-                    <span class="feature-tag">100+ Languages</span>
-                    <span class="feature-tag">AutoML Translation</span>
-                </div>
-                <a href="https://cloud.google.com/translate" target="_blank" class="learn-btn">Explore</a>
-            </div>
+            <div class="service-card mistral code" data-category="mistral code"><div class="card-header"><div class="provider-badge mistral">Mistral</div></div><h3>Codestral 2501</h3><p>256K context code model — 80+ languages, fill-in-the-middle</p><div class="features"><span class="feature-tag">256K Context</span><span class="feature-tag">80+ Languages</span></div><a href="https://docs.mistral.ai/getting-started/models/" target="_blank" class="learn-btn">Explore →</a></div>
+
+            <div class="service-card mistral image text" data-category="mistral image text"><div class="card-header"><div class="provider-badge mistral">Mistral</div></div><h3>Pixtral Large</h3><p>Multimodal model for image understanding and visual reasoning</p><div class="features"><span class="feature-tag">Vision</span><span class="feature-tag">Multimodal</span></div><a href="https://docs.mistral.ai/getting-started/models/" target="_blank" class="learn-btn">Explore →</a></div>
+
+            <div class="service-card mistral text" data-category="mistral text"><div class="card-header"><div class="provider-badge mistral">Mistral</div></div><h3>Mistral Small 3.2</h3><p>Fast, efficient model for low-latency tasks — best cost/performance</p><div class="features"><span class="feature-tag">Fast</span><span class="feature-tag">Cost Efficient</span></div><a href="https://docs.mistral.ai/getting-started/models/" target="_blank" class="learn-btn">Explore →</a></div>
         </div>
     </main>
+
+    <footer>
+        <p>© 2026 AI Services Hub — Built by <a href="https://github.com/mohitmehral" target="_blank" rel="noopener">Mohit Mehral</a></p>
+    </footer>
 
     <script src="services.js"></script>
 </body>

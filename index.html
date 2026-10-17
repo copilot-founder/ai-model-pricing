@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Vertex AI & Anthropic Claude Pricing Calculator – Compare LLM Costs (OpenAI, Cohere, AWS, Azure, GCP)</title>
-    <meta name="description" content="Compare Google Vertex AI pricing for Anthropic Claude, Cohere, OpenAI, AWS Bedrock & Azure. Real-time token calculator for 47+ LLM models with per-1k token costs.">
+    <title>AI Model Pricing Calculator — Compare 70+ LLM model and their cost on based of token used | Free</title>
+    <link rel="icon" type="image/svg+xml" href="./coin-logo.svg">
+    <meta name="description" content="Free AI pricing calculator — compare token costs for 70+ LLM models across OpenAI GPT-5, Claude 4, Gemini 2.5, AWS Bedrock, Azure & Mistral. Real-time estimates.">
     <meta name="keywords" content="AI pricing calculator, OpenAI pricing, AWS Bedrock cost, Azure OpenAI pricing, Anthropic Claude pricing, Google Cloud AI pricing, AI model comparison, token calculator, LLM pricing, tokenizer, AI tokenization">
     <meta name="author" content="Mohit Mehral">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://mohitmehral.github.io/ai-model-pricing/">
+    <meta name="theme-color" content="#0a0a0f">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mohitmehral.github.io/ai-model-pricing/">
     <meta property="og:title" content="AI Model Pricing Calculator - Compare AWS, Azure, OpenAI & More">
     <meta property="og:description" content="Compare AI model pricing across 47+ models from AWS, Azure, OpenAI, Anthropic & Google Cloud. Free token calculator with real-time cost estimates.">
-    <meta property="og:image" content="https://mohitmehral.github.io/ai-model-pricing/og-image.png">
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:card" content="summary">
     <meta property="twitter:url" content="https://mohitmehral.github.io/ai-model-pricing/">
     <meta property="twitter:title" content="AI Model Pricing Calculator - Compare AWS, Azure, OpenAI & More">
     <meta property="twitter:description" content="Compare AI model pricing across 47+ models from AWS, Azure, OpenAI, Anthropic & Google Cloud. Free token calculator with real-time cost estimates.">
-    <meta property="twitter:image" content="https://mohitmehral.github.io/ai-model-pricing/og-image.png">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -90,32 +90,76 @@
     }
     </script>
     
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>AI Model Pricing Calculator</h1>
-        <p style="font-size: 1.1rem; color: #fff; margin-top: 0.5rem; font-weight: 300;">(Google Vertex AI, Anthropic Claude, Cohere, OpenAI, AWS, Azure)</p>
-        <p style="max-width: 900px; margin: 1.5rem auto 0; line-height: 1.6;">Calculate per-1k token costs in real-time with provider-specific tokenization for 47+ LLM models.</p>
+
+    <!-- NAV -->
+    <nav class="topnav">
+        <div class="topnav-inner">
+            <span class="topnav-logo"><img src="./coin-logo.svg" alt="" class="nav-coin-logo"> AI Pricing</span>
+            <div class="topnav-links">
+                <a href="#calculator">Calculator</a>
+                <a href="#models">Models</a>
+                <a href="#services">Services</a>
+                <a href="#faq-section">FAQ</a>
+                <a href="https://github.com/mohitmehral" target="_blank" rel="noopener" class="topnav-gh">GitHub ↗</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Updated May 2026 · 70+ Models</div>
+            <h1>AI Model <span class="neon">Pricing</span> Calculator</h1>
+            <p class="hero-sub">Compare real-time token costs across OpenAI, Anthropic, AWS, Azure, GCP & Mistral.<br>Type your prompt — see costs instantly.</p>
+            <div class="hero-stats">
+                <div class="stat"><span class="stat-num" id="stat-models">70+</span><span class="stat-label">Models</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><span class="stat-num">6</span><span class="stat-label">Providers</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><span class="stat-num">Free</span><span class="stat-label">Always</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><span class="stat-num">Real-time</span><span class="stat-label">Cost Calc</span></div>
+            </div>
+            <div class="hero-cta">
+                <a href="#calculator" class="btn-primary">Start Calculating</a>
+                <a href="#models" class="btn-ghost">Browse Models</a>
+            </div>
+        </div>
+        <div class="hero-grid-bg"></div>
     </header>
 
     <main>
         <!-- Top Tables Section -->
-        <section class="top-tables">
-            <div class="table-tabs">
-                <button class="table-tab active" data-table="pricing">Pricing</button>
-                <button class="table-tab" data-table="services">Services</button>
-            </div>
-            
+        <section class="top-tables" id="calculator">
             <!-- Pricing Calculator Section -->
             <div class="table-container" id="pricing-table">
-                <section class="calculator">
+                <section class="calculator" id="calculator-section">
                     <div class="calculator-header">
-                        <h2>AI Token Calculator 
-                            <span class="info-icon" title="What are tokens?">i</span>
-                        </h2>
-                        <div class="pricing-updated">Prices updated: <time id="calc-last-updated">Loading...</time></div>
+                        <div>
+                            <h2>AI Token Calculator 
+                                <span class="info-icon" title="What are tokens?">i</span>
+                            </h2>
+                            <p class="calc-desc">Enter your prompt and expected output — costs update live as you type</p>
+                        </div>
+                        <div class="calc-header-right">
+                            <span class="live-dot"></span><span class="connect-label">Connect Your Free API</span>
+                            <button id="gemini-connect-btn" class="gemini-btn" onclick="geminiAuth.connect('gemini')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                <span id="gemini-btn-text">Gemini</span>
+                            </button>
+                            <button id="grok-connect-btn" class="grok-btn-nav" onclick="geminiAuth.connect('grok')">
+                                <svg class="grok-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                <span id="grok-btn-text">Grok</span>
+                            </button>
+                            <button id="gemini-generate-btn" class="generate-btn-inline hidden" onclick="geminiAuth.generate()">⚡ Generate</button>
+                            <button id="expand-calc-btn" class="expand-btn" onclick="toggleExpandCalc()" title="Expand calculator">⛶</button>
+                        </div>
                     </div>
+                    <p class="security-note hidden" id="security-note">🔒 Session only · Never stored · Cleared on tab close</p>
                     <div class="token-info-tooltip" id="token-info-tooltip">
                         <strong>What are Tokens?</strong><br>
                         When you run inference with AI models, you're charged for the number of tokens in your input and output. Tokens are text pieces that models process - different providers count tokens differently. Use this calculator to estimate token counts and refine your prompts to optimize costs and stay within quotas.
@@ -206,6 +250,18 @@ This tool helps developers, businesses, and researchers make informed decisions 
                                     <div class="accuracy-badge">90% Accurate</div>
                                 </div>
                             </div>
+                            
+                            <div class="provider-card mistral-card">
+                                <div class="card-header">
+                                    <img src="https://img.icons8.com/color/48/artificial-intelligence.png" alt="Mistral" class="provider-icon">
+                                    <h4>Mistral AI</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p class="method">~3.8 chars/token</p>
+                                    <p class="encoding">SentencePiece tokenization</p>
+                                    <div class="accuracy-badge">88% Accurate</div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="info-note">
@@ -214,20 +270,22 @@ This tool helps developers, businesses, and researchers make informed decisions 
                     </div>
                 </section>
                 
-                <section class="pricing-filters" aria-label="AI Provider Filter Options">
+                <section class="pricing-filters" aria-label="AI Provider Filter Options" id="models">
                     <h3 class="sr-only">Filter AI Models by Provider</h3>
-                    <div class="provider-tabs" role="tablist">
-                        <button class="tab-button active" data-provider="all" role="tab" aria-selected="true">All (<span id="all-count">0</span>)</button>
-                        <button class="tab-button" data-provider="aws" role="tab" aria-selected="false">AWS (<span id="aws-count">0</span>)</button>
-                        <button class="tab-button" data-provider="azure" role="tab" aria-selected="false">Azure (<span id="azure-count">0</span>)</button>
-                        <button class="tab-button" data-provider="openai" role="tab" aria-selected="false">OpenAI (<span id="openai-count">0</span>)</button>
-                        <button class="tab-button" data-provider="anthropic" role="tab" aria-selected="false">Anthropic (<span id="anthropic-count">0</span>)</button>
-                        <button class="tab-button" data-provider="gcp" role="tab" aria-selected="false">GCP (<span id="gcp-count">0</span>)</button>
-                    </div>
-                    <div class="download-links">
-                        <a href="#" id="download-md" class="download-link">Download MD</a>
-                        <span class="separator">|</span>
-                        <a href="#" id="download-pdf" class="download-link">Download PDF</a>
+                    <div class="filters-row">
+                        <div class="provider-tabs" role="tablist">
+                            <button class="tab-button active" data-provider="all" role="tab" aria-selected="true">All <span class="count-badge" id="all-count">0</span></button>
+                            <button class="tab-button" data-provider="aws" role="tab" aria-selected="false">AWS <span class="count-badge" id="aws-count">0</span></button>
+                            <button class="tab-button" data-provider="azure" role="tab" aria-selected="false">Azure <span class="count-badge" id="azure-count">0</span></button>
+                            <button class="tab-button" data-provider="openai" role="tab" aria-selected="false">OpenAI <span class="count-badge" id="openai-count">0</span></button>
+                            <button class="tab-button" data-provider="anthropic" role="tab" aria-selected="false">Anthropic <span class="count-badge" id="anthropic-count">0</span></button>
+                            <button class="tab-button" data-provider="gcp" role="tab" aria-selected="false">GCP <span class="count-badge" id="gcp-count">0</span></button>
+                            <button class="tab-button" data-provider="mistral" role="tab" aria-selected="false">Mistral <span class="count-badge" id="mistral-count">0</span></button>
+                        </div>
+                        <div class="download-links">
+                            <a href="#" id="download-md" class="btn-download">↓ MD</a>
+                            <a href="#" id="download-pdf" class="btn-download">↓ PDF</a>
+                        </div>
                     </div>
                 </section>
                 
@@ -235,74 +293,479 @@ This tool helps developers, businesses, and researchers make informed decisions 
                     <h3 class="sr-only">AI Model Pricing Cards</h3>
                     <!-- Models will be populated by JavaScript -->
                 </section>
+                <div class="pricing-updated-bottom">Latest updated price: <time id="calc-last-updated">Loading...</time></div>
             </div>
             
-            <!-- Services Mind Map -->
-            <div class="table-container hidden" id="services-table">
-                <div class="mindmap-container">
-                    <svg id="services-mindmap" width="100%" height="600">
-                        <!-- Mind map will be generated by JavaScript -->
-                    </svg>
-                </div>
-            </div>
         </section>
     </main>
 
+    <!-- AI Services Periodic Table Section -->
+    <section class="services-periodic-section" id="services">
+        <div class="services-periodic-inner">
+            <div class="section-label">Services</div>
+            <h2 class="section-title">AI <span class="neon">Services</span> Directory</h2>
+            <p class="services-sub">All major AI services at a glance — click any tile to explore</p>
+
+            <div class="services-filter-tabs">
+                <button class="svc-tab active" data-svc="all">All</button>
+                <button class="svc-tab" data-svc="text">Text</button>
+                <button class="svc-tab" data-svc="image">Image</button>
+                <button class="svc-tab" data-svc="speech">Speech</button>
+                <button class="svc-tab" data-svc="code">Code</button>
+                <button class="svc-tab" data-svc="mlops">MLOps</button>
+            </div>
+
+            <div class="periodic-grid" id="services-grid">
+                <!-- AWS -->
+                <a href="https://aws.amazon.com/bedrock/" target="_blank" class="ptile aws text" data-cat="text"><span class="ptile-symbol">Bk</span><span class="ptile-name">Bedrock</span><span class="ptile-provider">AWS</span></a>
+                <a href="https://aws.amazon.com/sagemaker/" target="_blank" class="ptile aws mlops" data-cat="mlops"><span class="ptile-symbol">Sm</span><span class="ptile-name">SageMaker</span><span class="ptile-provider">AWS</span></a>
+                <a href="https://aws.amazon.com/comprehend/" target="_blank" class="ptile aws text" data-cat="text"><span class="ptile-symbol">Cp</span><span class="ptile-name">Comprehend</span><span class="ptile-provider">AWS</span></a>
+                <a href="https://aws.amazon.com/rekognition/" target="_blank" class="ptile aws image" data-cat="image"><span class="ptile-symbol">Rk</span><span class="ptile-name">Rekognition</span><span class="ptile-provider">AWS</span></a>
+                <a href="https://aws.amazon.com/textract/" target="_blank" class="ptile aws text" data-cat="text"><span class="ptile-symbol">Tx</span><span class="ptile-name">Textract</span><span class="ptile-provider">AWS</span></a>
+                <a href="https://aws.amazon.com/polly/" target="_blank" class="ptile aws speech" data-cat="speech"><span class="ptile-symbol">Py</span><span class="ptile-name">Polly</span><span class="ptile-provider">AWS</span></a>
+                <a href="https://aws.amazon.com/transcribe/" target="_blank" class="ptile aws speech" data-cat="speech"><span class="ptile-symbol">Tr</span><span class="ptile-name">Transcribe</span><span class="ptile-provider">AWS</span></a>
+                <a href="https://aws.amazon.com/q/developer/" target="_blank" class="ptile aws code" data-cat="code"><span class="ptile-symbol">Qd</span><span class="ptile-name">Q Developer</span><span class="ptile-provider">AWS</span></a>
+
+                <!-- Azure -->
+                <a href="https://azure.microsoft.com/en-us/products/ai-services/openai-service" target="_blank" class="ptile azure text" data-cat="text"><span class="ptile-symbol">Ao</span><span class="ptile-name">Azure OpenAI</span><span class="ptile-provider">Azure</span></a>
+                <a href="https://azure.microsoft.com/en-us/products/machine-learning" target="_blank" class="ptile azure mlops" data-cat="mlops"><span class="ptile-symbol">Ml</span><span class="ptile-name">Azure ML</span><span class="ptile-provider">Azure</span></a>
+                <a href="https://azure.microsoft.com/en-us/products/ai-services/ai-vision" target="_blank" class="ptile azure image" data-cat="image"><span class="ptile-symbol">Av</span><span class="ptile-name">AI Vision</span><span class="ptile-provider">Azure</span></a>
+                <a href="https://azure.microsoft.com/en-us/products/ai-services/ai-speech" target="_blank" class="ptile azure speech" data-cat="speech"><span class="ptile-symbol">As</span><span class="ptile-name">AI Speech</span><span class="ptile-provider">Azure</span></a>
+                <a href="https://github.com/features/copilot" target="_blank" class="ptile azure code" data-cat="code"><span class="ptile-symbol">Cp</span><span class="ptile-name">Copilot</span><span class="ptile-provider">Azure</span></a>
+
+                <!-- OpenAI -->
+                <a href="https://platform.openai.com/docs/models" target="_blank" class="ptile openai text" data-cat="text"><span class="ptile-symbol">Gp</span><span class="ptile-name">GPT-5.3</span><span class="ptile-provider">OpenAI</span></a>
+                <a href="https://platform.openai.com/docs/guides/images" target="_blank" class="ptile openai image" data-cat="image"><span class="ptile-symbol">De</span><span class="ptile-name">DALL-E 3</span><span class="ptile-provider">OpenAI</span></a>
+                <a href="https://platform.openai.com/docs/guides/speech-to-text" target="_blank" class="ptile openai speech" data-cat="speech"><span class="ptile-symbol">Wh</span><span class="ptile-name">Whisper</span><span class="ptile-provider">OpenAI</span></a>
+                <a href="https://platform.openai.com/docs/guides/embeddings" target="_blank" class="ptile openai text" data-cat="text"><span class="ptile-symbol">Em</span><span class="ptile-name">Embeddings</span><span class="ptile-provider">OpenAI</span></a>
+
+                <!-- Anthropic -->
+                <a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" class="ptile anthropic text" data-cat="text"><span class="ptile-symbol">Cl</span><span class="ptile-name">Claude 4.6</span><span class="ptile-provider">Anthropic</span></a>
+                <a href="https://docs.anthropic.com/en/api" target="_blank" class="ptile anthropic text" data-cat="text"><span class="ptile-symbol">Ca</span><span class="ptile-name">Claude API</span><span class="ptile-provider">Anthropic</span></a>
+                <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" class="ptile anthropic code" data-cat="code"><span class="ptile-symbol">Cc</span><span class="ptile-name">Claude Code</span><span class="ptile-provider">Anthropic</span></a>
+
+                <!-- Google -->
+                <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/models" target="_blank" class="ptile gcp text" data-cat="text"><span class="ptile-symbol">Gm</span><span class="ptile-name">Gemini 2.5</span><span class="ptile-provider">Google</span></a>
+                <a href="https://cloud.google.com/vertex-ai" target="_blank" class="ptile gcp mlops" data-cat="mlops"><span class="ptile-symbol">Vx</span><span class="ptile-name">Vertex AI</span><span class="ptile-provider">Google</span></a>
+                <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/image/overview" target="_blank" class="ptile gcp image" data-cat="image"><span class="ptile-symbol">Im</span><span class="ptile-name">Imagen 3</span><span class="ptile-provider">Google</span></a>
+                <a href="https://cloud.google.com/speech-to-text" target="_blank" class="ptile gcp speech" data-cat="speech"><span class="ptile-symbol">Sp</span><span class="ptile-name">Speech AI</span><span class="ptile-provider">Google</span></a>
+                <a href="https://cloud.google.com/natural-language" target="_blank" class="ptile gcp text" data-cat="text"><span class="ptile-symbol">Nl</span><span class="ptile-name">NL AI</span><span class="ptile-provider">Google</span></a>
+
+                <!-- Mistral -->
+                <a href="https://docs.mistral.ai/getting-started/models/" target="_blank" class="ptile mistral text" data-cat="text"><span class="ptile-symbol">Ml</span><span class="ptile-name">Large 2</span><span class="ptile-provider">Mistral</span></a>
+                <a href="https://docs.mistral.ai/getting-started/models/" target="_blank" class="ptile mistral code" data-cat="code"><span class="ptile-symbol">Cs</span><span class="ptile-name">Codestral</span><span class="ptile-provider">Mistral</span></a>
+                <a href="https://docs.mistral.ai/getting-started/models/" target="_blank" class="ptile mistral image" data-cat="image"><span class="ptile-symbol">Px</span><span class="ptile-name">Pixtral</span><span class="ptile-provider">Mistral</span></a>
+                <a href="https://docs.mistral.ai/getting-started/models/" target="_blank" class="ptile mistral text" data-cat="text"><span class="ptile-symbol">Ms</span><span class="ptile-name">Small 3.2</span><span class="ptile-provider">Mistral</span></a>
+            </div>
+
+            <div class="services-legend">
+                <span class="legend-item"><span class="legend-dot aws"></span>AWS</span>
+                <span class="legend-item"><span class="legend-dot azure"></span>Azure</span>
+                <span class="legend-item"><span class="legend-dot openai"></span>OpenAI</span>
+                <span class="legend-item"><span class="legend-dot anthropic"></span>Anthropic</span>
+                <span class="legend-item"><span class="legend-dot gcp"></span>Google</span>
+                <span class="legend-item"><span class="legend-dot mistral"></span>Mistral</span>
+            </div>
+        </div>
+    </section>
+
     <!-- FAQ Section -->
-    <section class="faq-section" style="max-width: 1200px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <h2 style="color: #1a73e8; font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">Frequently Asked Questions</h2>
-        
-        <div class="faq-item" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e0e0e0;">
-            <h3 style="color: #333; font-size: 1.3rem; margin-bottom: 0.8rem;">What is Google Vertex AI pricing for Anthropic Claude and Cohere models?</h3>
-            <p style="color: #555; line-height: 1.7;">Google Cloud Vertex AI offers Anthropic Claude models (Claude 3.5 Sonnet at $3/$15 per million tokens, Claude 3 Haiku at $0.25/$1.25) and Cohere models (Command R+ at $2.50/$10, Command R at $0.50/$1.50). Use the GCP filter above to compare all Vertex AI models including Google Gemini, Anthropic Claude, and Cohere Command. Pricing is sourced from official Google Cloud documentation.</p>
+    <section class="faq-section" id="faq-section">
+        <div class="faq-inner">
+            <div class="section-label">FAQ</div>
+            <h2 class="section-title">AI Model Token/<span class="neon">Pricing</span> Calculator</h2>
+            <div class="faq-grid">
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">What is a token and how does it affect AI pricing? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>A token is a chunk of text that AI models process — roughly 3-4 characters or ¾ of a word. You're charged per token for both input (your prompt) and output (the AI response). For example, "Hello world" is about 2 tokens. Understanding tokens helps you estimate costs before running expensive API calls. Different providers tokenize text differently, which is why the same prompt can cost different amounts across OpenAI, Anthropic, and Google.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">How do I calculate the cost of an AI API call? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Cost = (Input Tokens × Input Price) + (Output Tokens × Output Price). For example, with GPT-4o at $0.0025/1K input and $0.01/1K output: a 500-token prompt with a 1000-token response costs (500/1000 × $0.0025) + (1000/1000 × $0.01) = $0.01125. Use our calculator above — just paste your prompt and expected output length to see real-time costs across all 70+ models.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Which AI model is cheapest for my use case? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>It depends on your needs. For simple tasks (classification, extraction): GPT-4o mini ($0.00015/1K) or Claude 3.5 Haiku ($0.0008/1K) are extremely cheap. For complex reasoning: GPT-5.3 or Claude 4.6 offer best quality but cost more. For code: Codestral 2501 or GPT-4o are cost-effective. For high-volume production: Amazon Nova Micro ($0.000035/1K) is the cheapest option available. Use the provider filter tabs above to compare within your budget.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">What's the difference between GPT-5.3, Claude 4.6, and Gemini 2.5 Pro? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>GPT-5.3 (OpenAI) — 256K context, strongest at general reasoning and instruction following, $0.015/$0.06 per 1K tokens. Claude 4.6 (Anthropic) — 500K context (largest), excels at long document analysis and coding, $0.012/$0.06. Gemini 2.5 Pro (Google) — 1M context, best for multimodal tasks (text+image+video), cheapest at $0.00125/$0.01. Choose based on: context length needed, multimodal requirements, and budget.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">Why do different providers charge different prices for the same model? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>When you access Claude on AWS Bedrock vs directly from Anthropic vs on Google Vertex AI, prices are usually identical — providers pass through the model maker's pricing. However, differences arise from: (1) commitment discounts (AWS Savings Plans), (2) regional pricing variations, (3) provisioned throughput vs on-demand, and (4) additional platform features like guardrails, caching, or fine-tuning. Always compare the "per 1K token" rate using our calculator for apples-to-apples comparison.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">How accurate is this token calculator? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Our calculator uses provider-specific tokenization: OpenAI/Azure models use the tiktoken library (cl100k_base encoding) for ~95% accuracy. For Anthropic, AWS, GCP, and Mistral, we use calibrated character-to-token ratios (3.6-4.2 chars/token) giving 85-90% accuracy. For exact counts, hover over any model card to see provider-specific token counts. The actual billed amount may vary slightly due to system tokens and formatting overhead.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">What is context length and why does it matter for pricing? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Context length is the maximum number of tokens a model can process in a single request (input + output combined). Claude 4.6 supports 500K tokens (~375K words), Gemini 2.5 Pro supports 1M tokens. Longer context = you can send entire documents, codebases, or conversation histories. But you pay for every token in the context window, so sending a 100K-token document costs 100× more than a 1K-token prompt. Optimize by only including relevant context.</p></div>
+                </div>
+
+                <div class="faq-item" onclick="this.classList.toggle('open')">
+                    <div class="faq-q">How can I reduce my AI API costs? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Key strategies: (1) Use smaller models for simple tasks — GPT-4o mini or Nova Micro instead of GPT-5.3. (2) Prompt engineering — shorter, clearer prompts = fewer input tokens. (3) Set max_tokens to limit output length. (4) Use caching (Anthropic prompt caching saves 90% on repeated prefixes). (5) Batch API calls for 50% discount (OpenAI Batch API). (6) Fine-tune a smaller model for your specific task. (7) Use embeddings + RAG instead of stuffing everything in context.</p></div>
+                </div>
+
+            </div>
         </div>
-        
-        <div class="faq-item" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e0e0e0;">
-            <h3 style="color: #333; font-size: 1.3rem; margin-bottom: 0.8rem;">How much does Anthropic Claude cost on Google Vertex AI?</h3>
-            <p style="color: #555; line-height: 1.7;">Anthropic Claude pricing on Google Cloud Vertex AI varies by model: Claude 3.5 Sonnet costs $3.00 per million input tokens and $15.00 per million output tokens, while Claude 3 Haiku is more economical at $0.25/$1.25 per million tokens. These prices are sourced from official Google Cloud documentation and may vary by region. Always confirm the latest pricing with Google Cloud Vertex AI before deploying production workloads.</p>
-        </div>
-        
-        <div class="faq-item" style="margin-bottom: 0;">
-            <h3 style="color: #333; font-size: 1.3rem; margin-bottom: 0.8rem;">How does Anthropic Claude pricing on Vertex AI compare to Cohere and OpenAI?</h3>
-            <p style="color: #555; line-height: 1.7;">On Google Vertex AI, Anthropic Claude 3.5 Sonnet ($3/$15 per million tokens) is competitively priced against OpenAI GPT-4 Turbo ($10/$30) but more expensive than Cohere Command R+ ($2.50/$10). For cost-sensitive workloads, Cohere Command R ($0.50/$1.50) and Claude 3 Haiku ($0.25/$1.25) offer budget-friendly alternatives. Use the calculator above to compare exact costs for your specific prompt and output lengths, as pricing comes from official provider documentation and should be verified for your use case.</p>
+    </section>
+
+
+    <!-- Sponsor Section -->
+    <section class="sponsor-section">
+        <div class="sponsor-inner">
+            <div class="sponsor-slot">
+                <div class="sponsor-badge">Sponsor Slot</div>
+                <p class="sponsor-text">Your brand here — reach 1000s of AI developers monthly</p>
+                <a href="mailto:mohitmehral@gmail.com?subject=Sponsorship%20Inquiry%20-%20AI%20Pricing%20Calculator" class="sponsor-cta">Get in Touch</a>
+            </div>
+            <div class="sponsor-divider"></div>
+            <div class="sponsor-support">
+                <p class="support-title">Support this project</p>
+                <p class="support-desc">Free forever. If this tool saves you time, consider supporting its development.</p>
+                <div class="support-links">
+                    <a href="https://github.com/sponsors/mohitmehral" target="_blank" rel="noopener" class="support-btn github-sponsor">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.565 20.565 0 008 13.393a20.561 20.561 0 003.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.75.75 0 01-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5z"/></svg>
+                        Sponsor on GitHub
+                    </a>
+                    <a href="https://buymeacoffee.com/mohitmehral" target="_blank" rel="noopener" class="support-btn coffee-btn">
+                        ☕ Buy me a coffee
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
         <section class="pricing-info">
             <nav class="official-sources" aria-label="Official AI Provider Documentation">
+                <div class="section-label">Sources</div>
                 <h3>Official Pricing Documentation</h3>
                 <div class="sources-grid">
-                    <a href="https://aws.amazon.com/bedrock/pricing/" target="_blank" rel="noopener" class="source-link aws" aria-label="AWS Bedrock official pricing documentation">
+                    <a href="https://aws.amazon.com/bedrock/pricing/?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=aws_bedrock" target="_blank" rel="noopener" class="source-link" aria-label="AWS Bedrock official pricing documentation">
                         <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="AWS" class="footer-icon">
                         <span>AWS Bedrock</span>
                     </a>
-                    <a href="https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/" target="_blank" rel="noopener" class="source-link azure" aria-label="Azure OpenAI official pricing documentation">
+                    <a href="https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=azure_openai" target="_blank" rel="noopener" class="source-link" aria-label="Azure OpenAI official pricing documentation">
                         <img src="https://img.icons8.com/fluency/48/azure-1.png" alt="Azure" class="footer-icon">
                         <span>Azure OpenAI</span>
                     </a>
-                    <a href="https://openai.com/pricing" target="_blank" rel="noopener" class="source-link openai" aria-label="OpenAI official pricing documentation">
-                        <img src="https://img.icons8.com/ios/50/chatgpt.png" alt="OpenAI" class="footer-icon">
+                    <a href="https://openai.com/pricing?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=openai" target="_blank" rel="noopener" class="source-link" aria-label="OpenAI official pricing documentation">
+                        <img src="https://img.icons8.com/ios/50/chatgpt.png" alt="OpenAI" class="footer-icon icon-invert">
                         <span>OpenAI</span>
                     </a>
-                    <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener" class="source-link anthropic" aria-label="Anthropic Claude official pricing documentation">
-                        <img src="https://img.icons8.com/ios/50/claude.png" alt="Anthropic" class="footer-icon">
+                    <a href="https://www.anthropic.com/pricing?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=anthropic" target="_blank" rel="noopener" class="source-link" aria-label="Anthropic Claude official pricing documentation">
+                        <img src="https://img.icons8.com/ios/50/claude.png" alt="Anthropic" class="footer-icon icon-invert">
                         <span>Anthropic</span>
                     </a>
-                    <a href="https://cloud.google.com/vertex-ai/pricing" target="_blank" rel="noopener" class="source-link gcp" aria-label="Google Cloud Vertex AI official pricing documentation">
+                    <a href="https://cloud.google.com/vertex-ai/pricing?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=gcp_vertex" target="_blank" rel="noopener" class="source-link" aria-label="Google Cloud Vertex AI official pricing documentation">
                         <img src="https://img.icons8.com/color/48/google-cloud.png" alt="Google Cloud" class="footer-icon">
                         <span>Google Cloud</span>
                     </a>
+                    <a href="https://mistral.ai/technology/?utm_source=ai-pricing-calculator&utm_medium=referral&utm_campaign=footer_sources&utm_content=mistral" target="_blank" rel="noopener" class="source-link" aria-label="Mistral AI official pricing documentation">
+                        <img src="https://img.icons8.com/color/48/artificial-intelligence.png" alt="Mistral" class="footer-icon">
+                        <span>Mistral AI</span>
+                    </a>
                 </div>
-                <p class="update-note">All pricing data sourced from official provider documentation and updated regularly.</p>
+                <p class="update-note">⚡ All pricing sourced from official provider documentation and updated regularly.</p>
             </nav>
         </section>
         <div class="footer-credits">
-            <p>&copy; 2026 AI Model Pricing Calculator. Built by <a href="https://github.com/mohitmehral" target="_blank" rel="noopener">Mohit Mehral</a></p>
+            <p>© 2026 AI Model Pricing Calculator &mdash; Built by <a href="https://github.com/mohitmehral" target="_blank" rel="noopener">Mohit Mehral</a> &mdash; <span class="neon">Free forever</span></p>
         </div>
     </footer>
 
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script type="importmap">
+    { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } }
+    </script>
+    <script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+    window.GoogleGenerativeAI = GoogleGenerativeAI;
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/tiktoken@1.0.10/dist/tiktoken.min.js"></script>
-    <script src="script-new.js?v=2026"></script>
+    <script src="script-new.min.js?v=2026"></script>
+    <script>
+    // Google Gemini Integration
+    // Step 1: OAuth for identity/trust
+    // Step 2: User gets free Gemini API key from AI Studio (no credit card)
+    const GOOGLE_CLIENT_ID = '788870211047-17389in7914h4bor388tdj3aj90p4n3a.apps.googleusercontent.com';
+
+    const geminiAuth = {
+        user: null,
+        apiKey: null,
+        provider: 'gemini',
+        selectedProvider: 'gemini',
+
+        connect(provider) {
+            this.selectedProvider = provider || 'gemini';
+            // Check if already has API key in session for this provider
+            const savedKey = sessionStorage.getItem('gemini-api-key');
+            const savedProvider = sessionStorage.getItem('ai-provider');
+            if (savedKey && savedProvider === this.selectedProvider) {
+                this.apiKey = savedKey;
+                this.provider = savedProvider;
+                this.showConnected('Connected');
+                return;
+            }
+            // Start OAuth for identity (Gemini) or go straight to key modal (Grok)
+            if (this.selectedProvider === 'gemini') {
+                const client = google.accounts.oauth2.initTokenClient({
+                    client_id: GOOGLE_CLIENT_ID,
+                    scope: 'https://www.googleapis.com/auth/userinfo.profile',
+                    callback: (response) => {
+                        if (response.access_token) {
+                            this.fetchProfile(response.access_token);
+                        }
+                    },
+                });
+                client.requestAccessToken();
+            } else {
+                this.showKeyModal(null);
+            }
+        },
+
+        fetchProfile(token) {
+            fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(r => r.json())
+            .then(user => {
+                this.user = user;
+                this.showKeyModal(user);
+            })
+            .catch(() => this.showKeyModal(null));
+        },
+
+        showKeyModal(user) {
+            const name = user?.given_name || 'there';
+            const provider = this.selectedProvider;
+            const isGrok = provider === 'grok';
+            const modal = document.createElement('div');
+            modal.id = 'gemini-modal';
+            modal.innerHTML = `
+                <div class="gm-overlay" onclick="document.getElementById('gemini-modal').remove()"></div>
+                <div class="gm-dialog">
+                    <button class="gm-close" onclick="document.getElementById('gemini-modal').remove()">&times;</button>
+                    <h3>${isGrok ? '⚡ Connect Grok' : `Hi ${name}! Connect Gemini`}</h3>
+                    <p class="gm-desc">${isGrok ? 'Get your free Grok API key — no credit card needed.' : 'Get your free Gemini API key from Google AI Studio.'}</p>
+                    <a href="${isGrok ? 'https://console.x.ai' : 'https://aistudio.google.com/apikey'}" target="_blank" rel="noopener" class="gm-studio-btn ${isGrok ? 'grok-btn' : ''}">
+                        Get Free ${isGrok ? 'Grok' : 'Gemini'} Key ↗
+                    </a>
+                    <p class="provider-info">${isGrok ? '60 req/min · $25/mo free credits · Grok-3 Mini' : '1M tokens/day · 15 req/min · Gemini 2.0 Flash'}</p>
+                    <div class="gm-input-wrap">
+                        <label>Paste your key below:</label>
+                        <input type="password" id="gemini-key-input" placeholder="${isGrok ? 'xai-...' : 'AIzaSy...'}" autocomplete="off">
+                        <p class="gm-note">🔒 Stored in session only. Cleared when you close the tab. Sent only to ${isGrok ? 'Grok' : 'Google'}’s API.</p>
+                    </div>
+                    <button class="gm-save-btn" onclick="geminiAuth.saveKey()">Connect & Start</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        },
+
+        saveKey() {
+            const input = document.getElementById('gemini-key-input');
+            const key = input.value.trim();
+            const provider = this.selectedProvider || 'gemini';
+
+            if (!key) {
+                input.style.borderColor = '#ff5050';
+                return;
+            }
+            if (provider === 'gemini' && !key.startsWith('AIza')) {
+                input.style.borderColor = '#ff5050';
+                input.placeholder = 'Gemini key starts with AIza...';
+                return;
+            }
+            if (provider === 'grok' && !key.startsWith('xai-')) {
+                input.style.borderColor = '#ff5050';
+                input.placeholder = 'Grok key starts with xai-...';
+                return;
+            }
+
+            this.apiKey = key;
+            this.provider = provider;
+            sessionStorage.setItem('gemini-api-key', key);
+            sessionStorage.setItem('ai-provider', provider);
+            document.getElementById('gemini-modal').remove();
+            this.showConnected(this.user?.given_name || 'Connected');
+        },
+
+        showConnected(name) {
+            const isGrok = this.provider === 'grok';
+            const geminiBtn = document.getElementById('gemini-connect-btn');
+            const grokBtn = document.getElementById('grok-connect-btn');
+            if (isGrok) {
+                grokBtn.classList.add('connected');
+                document.getElementById('grok-btn-text').textContent = name;
+                grokBtn.onclick = () => this.disconnect();
+                grokBtn.title = 'Click to disconnect';
+            } else {
+                geminiBtn.classList.add('connected');
+                document.getElementById('gemini-btn-text').textContent = name;
+                geminiBtn.onclick = () => this.disconnect();
+                geminiBtn.title = 'Click to disconnect';
+            }
+            document.getElementById('gemini-generate-btn').classList.remove('hidden');
+            document.getElementById('security-note').classList.remove('hidden');
+            document.getElementById('ai-rt-arrow').classList.add('hidden');
+            document.querySelector('.ai-realtime-block').style.borderStyle = 'solid';
+            document.querySelector('.ai-realtime-block').style.animation = 'none';
+        },
+
+        disconnect() {
+            this.apiKey = null;
+            this.user = null;
+            this.provider = null;
+            sessionStorage.removeItem('gemini-api-key');
+            sessionStorage.removeItem('ai-provider');
+            const geminiBtn = document.getElementById('gemini-connect-btn');
+            const grokBtn = document.getElementById('grok-connect-btn');
+            geminiBtn.classList.remove('connected');
+            grokBtn.classList.remove('connected');
+            document.getElementById('gemini-btn-text').textContent = 'Gemini';
+            document.getElementById('grok-btn-text').textContent = 'Grok';
+            geminiBtn.onclick = () => this.connect('gemini');
+            grokBtn.onclick = () => this.connect('grok');
+            geminiBtn.title = '';
+            grokBtn.title = '';
+            document.getElementById('gemini-generate-btn').classList.add('hidden');
+            document.getElementById('security-note').classList.add('hidden');
+            document.getElementById('ai-rt-arrow').classList.remove('hidden');
+            document.querySelector('.ai-realtime-block').style.borderStyle = 'dashed';
+            document.querySelector('.ai-realtime-block').style.animation = 'softGlow 3s ease infinite';
+        },
+
+        async generate() {
+            if (!this.apiKey) { this.connect(); return; }
+
+            const input = document.getElementById('input-text').value.trim();
+            if (!input) return;
+
+            const btn = document.getElementById('gemini-generate-btn');
+            const outputEl = document.getElementById('output-text');
+            btn.disabled = true;
+            btn.textContent = '⏳ Generating...';
+            outputEl.value = 'Generating response...';
+
+            try {
+                let text;
+                if (this.provider === 'grok') {
+                    text = await this.callGrok(input);
+                } else {
+                    text = await this.callGemini(input);
+                }
+                outputEl.value = text || 'No response generated.';
+                outputEl.dispatchEvent(new Event('input'));
+                if (typeof app !== 'undefined') app.calculateTokens();
+            } catch (err) {
+                const msg = err.message || '';
+                if (msg.includes('quota') || msg.includes('429') || msg.includes('retry') || msg.includes('rate_limit')) {
+                    const wait = msg.match(/(\d+\.?\d*)s/);
+                    outputEl.value = `⏳ Rate limit hit. Please wait ${wait ? wait[1] : '15'}s and try again.`;
+                } else if (msg.includes('API_KEY_INVALID') || msg.includes('401') || msg.includes('invalid_api_key') || msg.includes('API key not valid')) {
+                    sessionStorage.removeItem('gemini-api-key');
+                    sessionStorage.removeItem('ai-provider');
+                    this.apiKey = null;
+                    outputEl.value = 'Invalid API key. Please reconnect.';
+                    this.disconnect();
+                } else if (msg.includes('SDK still loading')) {
+                    outputEl.value = msg;
+                } else {
+                    outputEl.value = `Error: ${msg}`;
+                }
+                console.error('AI error:', err);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '⚡ Get Real Response';
+            }
+        },
+
+        async callGemini(input) {
+            if (typeof GoogleGenerativeAI === 'undefined') {
+                throw new Error('AI SDK still loading. Please wait a moment and try again.');
+            }
+            const genAI = new GoogleGenerativeAI(this.apiKey);
+            const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+            const result = await model.generateContent(input);
+            return result.response.text();
+        },
+
+        async callGrok(input) {
+            const res = await fetch('https://api.x.ai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${this.apiKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'grok-3-mini',
+                    messages: [{ role: 'user', content: input }],
+                    max_tokens: 1024
+                })
+            });
+            const data = await res.json();
+            if (data.error) throw new Error(data.error.message || 'Grok API error');
+            return data.choices?.[0]?.message?.content || 'No response.';
+        }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedKey = sessionStorage.getItem('gemini-api-key');
+        const savedProvider = sessionStorage.getItem('ai-provider');
+        if (savedKey) {
+            geminiAuth.apiKey = savedKey;
+            geminiAuth.provider = savedProvider || 'gemini';
+            geminiAuth.showConnected('Connected');
+        }
+    });
+
+
+    // Expand/Collapse Calculator
+    function toggleExpandCalc() {
+        const calc = document.getElementById('calculator-section');
+        const btn = document.getElementById('expand-calc-btn');
+        calc.classList.toggle('expanded');
+        btn.textContent = calc.classList.contains('expanded') ? '✖' : '⛶';
+        btn.title = calc.classList.contains('expanded') ? 'Collapse calculator' : 'Expand calculator';
+    }
+
+    // Track outbound clicks to provider links
+    document.querySelectorAll('.source-link, .learn-btn, .ptile').forEach(link => {
+        link.addEventListener('click', function() {
+            const url = this.href || this.getAttribute('href');
+            if (url && typeof gtag !== 'undefined') {
+                gtag('event', 'click', {
+                    event_category: 'outbound',
+                    event_label: url,
+                    transport_type: 'beacon'
+                });
+            }
+        });
+    });
+    </script>
+    <script>
+    document.querySelectorAll('.svc-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.svc-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const cat = btn.dataset.svc;
+            document.querySelectorAll('.ptile').forEach(tile => {
+                tile.style.display = (cat === 'all' || tile.dataset.cat === cat) ? '' : 'none';
+            });
+        });
+    });
+    </script>
 </body>
 </html>
