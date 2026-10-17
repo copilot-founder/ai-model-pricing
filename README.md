@@ -1,14 +1,16 @@
 # AI Model Pricing Calculator
 
-A comprehensive web application to compare pricing across major AI providers including AWS Bedrock, Azure OpenAI, Google Cloud Vertex AI, OpenAI, and Anthropic.
+A comprehensive web application to compare pricing across major AI providers including OpenAI (GPT-6), Anthropic (Claude 5.5), Google Cloud Vertex AI (Gemini 3), AWS Bedrock (Amazon Nova), Azure OpenAI and Mistral. Pricing last reviewed October 2026.
 
 ## Features
 
 ###  Pricing Calculator
 - **Real-time token calculation** from input/output text
 - **Provider-specific tokenization** for accurate pricing
-- **47+ AI models** across all major providers
-- **Interactive filtering** by provider (AWS, Azure, OpenAI, Anthropic, GCP)
+- **60+ AI models** across all major providers (2026 lineup)
+- **Interactive filtering** by provider (AWS, Azure, OpenAI, Anthropic, GCP, Mistral)
+- **Head-to-head model comparison** — pick any two models to compare pricing
+- **Price changelog** — dated log of cuts, increases, launches and retirements
 - **Professional card design** with scrollable interface
 - **Cost comparison** with live pricing updates
 

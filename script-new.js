@@ -25,6 +25,9 @@ class ModelPricingApp {
         this.renderModels();
         this.calculateTokens();
         this.updateLastUpdated();
+        this.renderChangelog();
+        this.setupChangelogFilters();
+        this.setupComparison();
     }
 
     async initializeTokenizers() {
@@ -67,90 +70,81 @@ class ModelPricingApp {
 
     getStaticPricingData() {
         return [
-            // AWS Models (18 models)
-            { name: "Claude 4.6 (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "500K", inputPrice: 0.012, outputPrice: 0.06, currency: "USD", per: "1K tokens", featured: true, symbol: "BC46", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-3.html" },
-            { name: "Claude 4 Sonnet (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "200K", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "BC4S", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-3.html" },
-            { name: "Claude 3.7 Sonnet (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "200K", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "BC37", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-3.html" },
-            { name: "Claude 3.5 Sonnet (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "200K", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "BC35S", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-3.html" },
-            { name: "Claude 3.5 Haiku (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "200K", inputPrice: 0.0008, outputPrice: 0.004, currency: "USD", per: "1K tokens", symbol: "BC35H", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-3.html" },
-            { name: "Claude 3 Opus (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "200K", inputPrice: 0.015, outputPrice: 0.075, currency: "USD", per: "1K tokens", symbol: "BC3O", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-3.html" },
-            { name: "Amazon Nova Premier", provider: "AWS Bedrock", providerClass: "aws", contextLength: "1M", inputPrice: 0.0025, outputPrice: 0.0125, currency: "USD", per: "1K tokens", symbol: "ANPR", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/nova-models.html" },
-            { name: "Amazon Nova Pro", provider: "AWS Bedrock", providerClass: "aws", contextLength: "300K", inputPrice: 0.0008, outputPrice: 0.0032, currency: "USD", per: "1K tokens", symbol: "ANP", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/nova-models.html" },
-            { name: "Amazon Nova Lite", provider: "AWS Bedrock", providerClass: "aws", contextLength: "300K", inputPrice: 0.0002, outputPrice: 0.0008, currency: "USD", per: "1K tokens", symbol: "ANL", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/nova-models.html" },
-            { name: "Amazon Nova Micro", provider: "AWS Bedrock", providerClass: "aws", contextLength: "128K", inputPrice: 0.000035, outputPrice: 0.00014, currency: "USD", per: "1K tokens", symbol: "ANM", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/nova-models.html" },
+            // ===== AWS Bedrock (15 models) — reviewed Oct 2026 =====
+            { name: "Claude Opus 4.5 (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "1M", inputPrice: 0.005, outputPrice: 0.025, currency: "USD", per: "1K tokens", featured: true, symbol: "BCO45", docUrl: "https://aws.amazon.com/bedrock/pricing/" },
+            { name: "Claude Sonnet 4.6 (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "1M", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "BCS46", docUrl: "https://aws.amazon.com/bedrock/pricing/" },
+            { name: "Claude Haiku 4.5 (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "200K", inputPrice: 0.001, outputPrice: 0.005, currency: "USD", per: "1K tokens", symbol: "BCH45", docUrl: "https://aws.amazon.com/bedrock/pricing/" },
+            { name: "Amazon Nova Premier", provider: "AWS Bedrock", providerClass: "aws", contextLength: "1M", inputPrice: 0.0025, outputPrice: 0.0125, currency: "USD", per: "1K tokens", symbol: "ANPR", docUrl: "https://aws.amazon.com/nova/pricing/" },
+            { name: "Amazon Nova Pro", provider: "AWS Bedrock", providerClass: "aws", contextLength: "300K", inputPrice: 0.0008, outputPrice: 0.0032, currency: "USD", per: "1K tokens", symbol: "ANP", docUrl: "https://aws.amazon.com/nova/pricing/" },
+            { name: "Amazon Nova Lite", provider: "AWS Bedrock", providerClass: "aws", contextLength: "300K", inputPrice: 0.00006, outputPrice: 0.00024, currency: "USD", per: "1K tokens", symbol: "ANL", docUrl: "https://aws.amazon.com/nova/pricing/" },
+            { name: "Amazon Nova Micro", provider: "AWS Bedrock", providerClass: "aws", contextLength: "128K", inputPrice: 0.000035, outputPrice: 0.00014, currency: "USD", per: "1K tokens", symbol: "ANM", docUrl: "https://aws.amazon.com/nova/pricing/" },
+            { name: "Llama 4 Maverick (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "1M", inputPrice: 0.00024, outputPrice: 0.00097, currency: "USD", per: "1K tokens", symbol: "L4MV", docUrl: "https://aws.amazon.com/bedrock/pricing/" },
+            { name: "Llama 4 Scout (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "3.5M", inputPrice: 0.00017, outputPrice: 0.00066, currency: "USD", per: "1K tokens", symbol: "L4SC", docUrl: "https://aws.amazon.com/bedrock/pricing/" },
             { name: "Llama 3.3 70B (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "128K", inputPrice: 0.00072, outputPrice: 0.00072, currency: "USD", per: "1K tokens", symbol: "L3370", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html" },
-            { name: "Llama 3.1 405B (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "128K", inputPrice: 0.00532, outputPrice: 0.016, currency: "USD", per: "1K tokens", symbol: "L31405", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html" },
-            { name: "Llama 3.1 70B (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "128K", inputPrice: 0.00099, outputPrice: 0.00099, currency: "USD", per: "1K tokens", symbol: "L3170", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html" },
+            { name: "DeepSeek-R1 (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "128K", inputPrice: 0.00135, outputPrice: 0.0054, currency: "USD", per: "1K tokens", symbol: "DSR1", docUrl: "https://aws.amazon.com/bedrock/pricing/" },
             { name: "Mistral Large 2 (Bedrock)", provider: "AWS Bedrock", providerClass: "aws", contextLength: "128K", inputPrice: 0.002, outputPrice: 0.006, currency: "USD", per: "1K tokens", symbol: "BML2", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-mistral.html" },
-            { name: "Titan Text G1 Express", provider: "AWS Bedrock", providerClass: "aws", contextLength: "8K", inputPrice: 0.0008, outputPrice: 0.0016, currency: "USD", per: "1K tokens", symbol: "TT1E", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/titan-text-models.html" },
-            { name: "Cohere Command R+", provider: "AWS Bedrock", providerClass: "aws", contextLength: "128K", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "BCCR+", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-cohere-command.html" },
-            { name: "Cohere Command R", provider: "AWS Bedrock", providerClass: "aws", contextLength: "128K", inputPrice: 0.0005, outputPrice: 0.0015, currency: "USD", per: "1K tokens", symbol: "BCCR", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-cohere-command.html" },
-            { name: "Stability AI SDXL 1.0", provider: "AWS Bedrock", providerClass: "aws", contextLength: "N/A", inputPrice: 0.04, outputPrice: 0.04, currency: "USD", per: "image", symbol: "SDXL", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-stability-diffusion.html" },
-            
-            // Azure Models (10 models)
-            { name: "GPT-5.3 (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "256K", inputPrice: 0.015, outputPrice: 0.06, currency: "USD", per: "1K tokens", featured: true, symbol: "G53A", docUrl: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models" },
-            { name: "GPT-4o (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "128K", inputPrice: 0.0025, outputPrice: 0.01, currency: "USD", per: "1K tokens", symbol: "G4OA", docUrl: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models" },
-            { name: "GPT-4o mini (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "128K", inputPrice: 0.00015, outputPrice: 0.0006, currency: "USD", per: "1K tokens", symbol: "G4OMA", docUrl: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models" },
-            { name: "o3 (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "200K", inputPrice: 0.01, outputPrice: 0.04, currency: "USD", per: "1K tokens", symbol: "O3A", docUrl: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models" },
-            { name: "o3 mini (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "200K", inputPrice: 0.0011, outputPrice: 0.0044, currency: "USD", per: "1K tokens", symbol: "O3MA", docUrl: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models" },
-            { name: "o4 mini (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "200K", inputPrice: 0.0011, outputPrice: 0.0044, currency: "USD", per: "1K tokens", symbol: "O4MA", docUrl: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models" },
-            { name: "GPT-4 Turbo (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "128K", inputPrice: 0.01, outputPrice: 0.03, currency: "USD", per: "1K tokens", symbol: "G4TA", docUrl: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models" },
-            { name: "DALL-E 3 (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "N/A", inputPrice: 0.04, outputPrice: 0.04, currency: "USD", per: "image", symbol: "DE3A", docUrl: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models#dall-e-models" },
-            { name: "Whisper (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "N/A", inputPrice: 0.006, outputPrice: 0.006, currency: "USD", per: "minute", symbol: "WHA", docUrl: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models#whisper-models" },
-            { name: "Text Embedding 3 Large (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "8K", inputPrice: 0.00013, outputPrice: 0.00013, currency: "USD", per: "1K tokens", symbol: "TE3LA", docUrl: "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models#embeddings-models" },
-            
-            // OpenAI Models (12 models)
-            { name: "GPT-5.3", provider: "OpenAI", providerClass: "openai", contextLength: "256K", inputPrice: 0.015, outputPrice: 0.06, currency: "USD", per: "1K tokens", featured: true, symbol: "G53", docUrl: "https://platform.openai.com/docs/models" },
-            { name: "GPT-5", provider: "OpenAI", providerClass: "openai", contextLength: "256K", inputPrice: 0.01, outputPrice: 0.04, currency: "USD", per: "1K tokens", featured: true, symbol: "G5", docUrl: "https://platform.openai.com/docs/models" },
-            { name: "GPT-4o", provider: "OpenAI", providerClass: "openai", contextLength: "128K", inputPrice: 0.0025, outputPrice: 0.01, currency: "USD", per: "1K tokens", symbol: "G4O", docUrl: "https://platform.openai.com/docs/models/gpt-4o" },
-            { name: "GPT-4o mini", provider: "OpenAI", providerClass: "openai", contextLength: "128K", inputPrice: 0.00015, outputPrice: 0.0006, currency: "USD", per: "1K tokens", symbol: "G4OM", docUrl: "https://platform.openai.com/docs/models/gpt-4o-mini" },
-            { name: "o3", provider: "OpenAI", providerClass: "openai", contextLength: "200K", inputPrice: 0.01, outputPrice: 0.04, currency: "USD", per: "1K tokens", symbol: "O3", docUrl: "https://platform.openai.com/docs/models/o3" },
-            { name: "o3 mini", provider: "OpenAI", providerClass: "openai", contextLength: "200K", inputPrice: 0.0011, outputPrice: 0.0044, currency: "USD", per: "1K tokens", symbol: "O3M", docUrl: "https://platform.openai.com/docs/models/o3-mini" },
+            { name: "Titan Text Premier", provider: "AWS Bedrock", providerClass: "aws", contextLength: "32K", inputPrice: 0.0005, outputPrice: 0.0015, currency: "USD", per: "1K tokens", symbol: "TTP", docUrl: "https://aws.amazon.com/bedrock/pricing/" },
+            { name: "Cohere Command R+", provider: "AWS Bedrock", providerClass: "aws", contextLength: "128K", inputPrice: 0.0025, outputPrice: 0.01, currency: "USD", per: "1K tokens", symbol: "BCCR+", docUrl: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-cohere-command.html" },
+            { name: "Stability AI SD3.5 Large", provider: "AWS Bedrock", providerClass: "aws", contextLength: "N/A", inputPrice: 0.08, outputPrice: 0.08, currency: "USD", per: "image", symbol: "SD35", docUrl: "https://aws.amazon.com/bedrock/pricing/" },
+
+            // ===== Azure OpenAI (9 models) =====
+            { name: "GPT-5.1 (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "400K", inputPrice: 0.00125, outputPrice: 0.01, currency: "USD", per: "1K tokens", featured: true, symbol: "G51A", docUrl: "https://azure.microsoft.com/en-us/pricing/details/azure-openai/" },
+            { name: "GPT-5.1 mini (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "400K", inputPrice: 0.00025, outputPrice: 0.002, currency: "USD", per: "1K tokens", symbol: "G51MA", docUrl: "https://azure.microsoft.com/en-us/pricing/details/azure-openai/" },
+            { name: "GPT-5.1 nano (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "400K", inputPrice: 0.00005, outputPrice: 0.0004, currency: "USD", per: "1K tokens", symbol: "G51NA", docUrl: "https://azure.microsoft.com/en-us/pricing/details/azure-openai/" },
+            { name: "o3 (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "200K", inputPrice: 0.002, outputPrice: 0.008, currency: "USD", per: "1K tokens", symbol: "O3A", docUrl: "https://azure.microsoft.com/en-us/pricing/details/azure-openai/" },
+            { name: "o4 mini (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "200K", inputPrice: 0.0011, outputPrice: 0.0044, currency: "USD", per: "1K tokens", symbol: "O4MA", docUrl: "https://azure.microsoft.com/en-us/pricing/details/azure-openai/" },
+            { name: "GPT-4.1 (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "1M", inputPrice: 0.002, outputPrice: 0.008, currency: "USD", per: "1K tokens", symbol: "G41A", docUrl: "https://azure.microsoft.com/en-us/pricing/details/azure-openai/" },
+            { name: "GPT-4.1 mini (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "1M", inputPrice: 0.0004, outputPrice: 0.0016, currency: "USD", per: "1K tokens", symbol: "G41MA", docUrl: "https://azure.microsoft.com/en-us/pricing/details/azure-openai/" },
+            { name: "GPT Image 1 (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "N/A", inputPrice: 0.04, outputPrice: 0.04, currency: "USD", per: "image", symbol: "GI1A", docUrl: "https://azure.microsoft.com/en-us/pricing/details/azure-openai/" },
+            { name: "Text Embedding 3 Large (Azure)", provider: "Azure OpenAI", providerClass: "azure", contextLength: "8K", inputPrice: 0.00013, outputPrice: 0.00013, currency: "USD", per: "1K tokens", symbol: "TE3LA", docUrl: "https://azure.microsoft.com/en-us/pricing/details/azure-openai/" },
+
+            // ===== OpenAI (12 models) =====
+            { name: "GPT-6 Astra", provider: "OpenAI", providerClass: "openai", contextLength: "400K", inputPrice: 0.01, outputPrice: 0.05, currency: "USD", per: "1K tokens", symbol: "G6A", docUrl: "https://developers.openai.com/api/docs/pricing/" },
+            { name: "GPT-6.1 Sol", provider: "OpenAI", providerClass: "openai", contextLength: "400K", inputPrice: 0.002, outputPrice: 0.01, currency: "USD", per: "1K tokens", featured: true, symbol: "G61S", docUrl: "https://developers.openai.com/api/docs/pricing/" },
+            { name: "GPT-6 Luna", provider: "OpenAI", providerClass: "openai", contextLength: "400K", inputPrice: 0.0001, outputPrice: 0.0005, currency: "USD", per: "1K tokens", symbol: "G6L", docUrl: "https://developers.openai.com/api/docs/pricing/" },
+            { name: "GPT-5.6 Sol", provider: "OpenAI", providerClass: "openai", contextLength: "400K", inputPrice: 0.004, outputPrice: 0.02, currency: "USD", per: "1K tokens", symbol: "G56S", docUrl: "https://developers.openai.com/api/docs/pricing/" },
+            { name: "GPT-5.3 Codex", provider: "OpenAI", providerClass: "openai", contextLength: "400K", inputPrice: 0.00175, outputPrice: 0.014, currency: "USD", per: "1K tokens", symbol: "G53CX", docUrl: "https://developers.openai.com/api/docs/pricing/" },
+            { name: "GPT-4.1", provider: "OpenAI", providerClass: "openai", contextLength: "1M", inputPrice: 0.002, outputPrice: 0.008, currency: "USD", per: "1K tokens", symbol: "G41", docUrl: "https://platform.openai.com/docs/models" },
+            { name: "GPT-4.1 mini", provider: "OpenAI", providerClass: "openai", contextLength: "1M", inputPrice: 0.0004, outputPrice: 0.0016, currency: "USD", per: "1K tokens", symbol: "G41M", docUrl: "https://platform.openai.com/docs/models" },
+            { name: "o3", provider: "OpenAI", providerClass: "openai", contextLength: "200K", inputPrice: 0.002, outputPrice: 0.008, currency: "USD", per: "1K tokens", symbol: "O3", docUrl: "https://platform.openai.com/docs/models/o3" },
             { name: "o4 mini", provider: "OpenAI", providerClass: "openai", contextLength: "200K", inputPrice: 0.0011, outputPrice: 0.0044, currency: "USD", per: "1K tokens", symbol: "O4M", docUrl: "https://platform.openai.com/docs/models/o4-mini" },
-            { name: "GPT-4 Turbo", provider: "OpenAI", providerClass: "openai", contextLength: "128K", inputPrice: 0.01, outputPrice: 0.03, currency: "USD", per: "1K tokens", symbol: "G4T", docUrl: "https://platform.openai.com/docs/models/gpt-4-turbo" },
-            { name: "DALL-E 3", provider: "OpenAI", providerClass: "openai", contextLength: "N/A", inputPrice: 0.04, outputPrice: 0.04, currency: "USD", per: "image", symbol: "DE3", docUrl: "https://platform.openai.com/docs/models/dall-e" },
-            { name: "Whisper", provider: "OpenAI", providerClass: "openai", contextLength: "N/A", inputPrice: 0.006, outputPrice: 0.006, currency: "USD", per: "minute", symbol: "WH", docUrl: "https://platform.openai.com/docs/models/whisper" },
-            { name: "Text Embedding 3 Large", provider: "OpenAI", providerClass: "openai", contextLength: "8K", inputPrice: 0.00013, outputPrice: 0.00013, currency: "USD", per: "1K tokens", symbol: "TE3L", docUrl: "https://platform.openai.com/docs/models/embeddings" },
+            { name: "GPT Image 2.5", provider: "OpenAI", providerClass: "openai", contextLength: "N/A", inputPrice: 0.008, outputPrice: 0.03, currency: "USD", per: "1K tokens", symbol: "GI25", docUrl: "https://developers.openai.com/api/docs/pricing/" },
+            { name: "GPT Transcribe", provider: "OpenAI", providerClass: "openai", contextLength: "N/A", inputPrice: 0.0045, outputPrice: 0.0045, currency: "USD", per: "minute", symbol: "GTR", docUrl: "https://developers.openai.com/api/docs/pricing/" },
             { name: "Text Embedding 3 Small", provider: "OpenAI", providerClass: "openai", contextLength: "8K", inputPrice: 0.00002, outputPrice: 0.00002, currency: "USD", per: "1K tokens", symbol: "TE3S", docUrl: "https://platform.openai.com/docs/models/embeddings" },
 
-            // Anthropic Models (9 models)
-            { name: "Claude 4.6", provider: "Anthropic", providerClass: "anthropic", contextLength: "500K", inputPrice: 0.012, outputPrice: 0.06, currency: "USD", per: "1K tokens", featured: true, symbol: "C46", docUrl: "https://docs.anthropic.com/en/docs/about-claude/models" },
-            { name: "Claude 4.5", provider: "Anthropic", providerClass: "anthropic", contextLength: "500K", inputPrice: 0.008, outputPrice: 0.04, currency: "USD", per: "1K tokens", symbol: "C45", docUrl: "https://docs.anthropic.com/en/docs/about-claude/models" },
-            { name: "Claude 4 Sonnet", provider: "Anthropic", providerClass: "anthropic", contextLength: "200K", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "C4S", docUrl: "https://docs.anthropic.com/en/docs/about-claude/models" },
-            { name: "Claude 4 Haiku", provider: "Anthropic", providerClass: "anthropic", contextLength: "200K", inputPrice: 0.0008, outputPrice: 0.004, currency: "USD", per: "1K tokens", symbol: "C4H", docUrl: "https://docs.anthropic.com/en/docs/about-claude/models" },
-            { name: "Claude 3.7 Sonnet", provider: "Anthropic", providerClass: "anthropic", contextLength: "200K", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "C37S", docUrl: "https://docs.anthropic.com/en/docs/about-claude/models" },
-            { name: "Claude 3.5 Sonnet", provider: "Anthropic", providerClass: "anthropic", contextLength: "200K", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "C35S", docUrl: "https://docs.anthropic.com/en/docs/about-claude/models" },
-            { name: "Claude 3.5 Haiku", provider: "Anthropic", providerClass: "anthropic", contextLength: "200K", inputPrice: 0.0008, outputPrice: 0.004, currency: "USD", per: "1K tokens", symbol: "C35H", docUrl: "https://docs.anthropic.com/en/docs/about-claude/models" },
-            { name: "Claude 3 Opus", provider: "Anthropic", providerClass: "anthropic", contextLength: "200K", inputPrice: 0.015, outputPrice: 0.075, currency: "USD", per: "1K tokens", symbol: "C3O", docUrl: "https://docs.anthropic.com/en/docs/about-claude/models" },
-            { name: "Claude 3 Haiku", provider: "Anthropic", providerClass: "anthropic", contextLength: "200K", inputPrice: 0.00025, outputPrice: 0.00125, currency: "USD", per: "1K tokens", symbol: "C3H", docUrl: "https://docs.anthropic.com/en/docs/about-claude/models" },
-            
-            // Mistral Models (8 models)
-            { name: "Mistral Large 2", provider: "Mistral AI", providerClass: "mistral", contextLength: "128K", inputPrice: 0.002, outputPrice: 0.006, currency: "USD", per: "1K tokens", featured: true, symbol: "ML2", docUrl: "https://docs.mistral.ai/getting-started/models/" },
+            // ===== Anthropic (8 models) =====
+            { name: "Claude Opus 5.5", provider: "Anthropic", providerClass: "anthropic", contextLength: "1M", inputPrice: 0.004, outputPrice: 0.02, currency: "USD", per: "1K tokens", featured: true, symbol: "CO55", docUrl: "https://platform.claude.com/docs/en/about-claude/pricing" },
+            { name: "Claude Sonnet 5.5", provider: "Anthropic", providerClass: "anthropic", contextLength: "1M", inputPrice: 0.002, outputPrice: 0.01, currency: "USD", per: "1K tokens", symbol: "CS55", docUrl: "https://platform.claude.com/docs/en/about-claude/pricing" },
+            { name: "Claude Haiku 5.5", provider: "Anthropic", providerClass: "anthropic", contextLength: "200K", inputPrice: 0.0001, outputPrice: 0.0005, currency: "USD", per: "1K tokens", symbol: "CH55", docUrl: "https://platform.claude.com/docs/en/about-claude/pricing" },
+            { name: "Claude Fable 5.1", provider: "Anthropic", providerClass: "anthropic", contextLength: "1M", inputPrice: 0.01, outputPrice: 0.05, currency: "USD", per: "1K tokens", symbol: "CF51", docUrl: "https://platform.claude.com/docs/en/about-claude/pricing" },
+            { name: "Claude Opus 4.5", provider: "Anthropic", providerClass: "anthropic", contextLength: "1M", inputPrice: 0.005, outputPrice: 0.025, currency: "USD", per: "1K tokens", symbol: "CO45", docUrl: "https://platform.claude.com/docs/en/about-claude/pricing" },
+            { name: "Claude Sonnet 4.5", provider: "Anthropic", providerClass: "anthropic", contextLength: "1M", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "CS45", docUrl: "https://platform.claude.com/docs/en/about-claude/pricing" },
+            { name: "Claude Haiku 4.5", provider: "Anthropic", providerClass: "anthropic", contextLength: "200K", inputPrice: 0.001, outputPrice: 0.005, currency: "USD", per: "1K tokens", symbol: "CH45", docUrl: "https://platform.claude.com/docs/en/about-claude/pricing" },
+            { name: "Claude Haiku 3.5", provider: "Anthropic", providerClass: "anthropic", contextLength: "200K", inputPrice: 0.0008, outputPrice: 0.004, currency: "USD", per: "1K tokens", symbol: "CH35", docUrl: "https://platform.claude.com/docs/en/about-claude/pricing" },
+
+            // ===== Mistral (8 models) =====
+            { name: "Mistral Large 3", provider: "Mistral AI", providerClass: "mistral", contextLength: "256K", inputPrice: 0.002, outputPrice: 0.006, currency: "USD", per: "1K tokens", featured: true, symbol: "ML3", docUrl: "https://docs.mistral.ai/getting-started/models/" },
             { name: "Mistral Medium 3", provider: "Mistral AI", providerClass: "mistral", contextLength: "128K", inputPrice: 0.0004, outputPrice: 0.002, currency: "USD", per: "1K tokens", symbol: "MM3", docUrl: "https://docs.mistral.ai/getting-started/models/" },
             { name: "Mistral Small 3.2", provider: "Mistral AI", providerClass: "mistral", contextLength: "128K", inputPrice: 0.0001, outputPrice: 0.0003, currency: "USD", per: "1K tokens", symbol: "MS32", docUrl: "https://docs.mistral.ai/getting-started/models/" },
-            { name: "Mistral Nemo", provider: "Mistral AI", providerClass: "mistral", contextLength: "128K", inputPrice: 0.00015, outputPrice: 0.00015, currency: "USD", per: "1K tokens", symbol: "MN", docUrl: "https://docs.mistral.ai/getting-started/models/" },
-            { name: "Codestral 2501", provider: "Mistral AI", providerClass: "mistral", contextLength: "256K", inputPrice: 0.003, outputPrice: 0.009, currency: "USD", per: "1K tokens", symbol: "CS25", docUrl: "https://docs.mistral.ai/getting-started/models/" },
+            { name: "Magistral Medium", provider: "Mistral AI", providerClass: "mistral", contextLength: "128K", inputPrice: 0.002, outputPrice: 0.005, currency: "USD", per: "1K tokens", symbol: "MGM", docUrl: "https://docs.mistral.ai/getting-started/models/" },
+            { name: "Codestral 2 (25.08)", provider: "Mistral AI", providerClass: "mistral", contextLength: "256K", inputPrice: 0.0003, outputPrice: 0.0009, currency: "USD", per: "1K tokens", symbol: "CS2", docUrl: "https://docs.mistral.ai/getting-started/models/" },
             { name: "Mistral Embed", provider: "Mistral AI", providerClass: "mistral", contextLength: "8K", inputPrice: 0.0001, outputPrice: 0.0001, currency: "USD", per: "1K tokens", symbol: "ME", docUrl: "https://docs.mistral.ai/getting-started/models/" },
             { name: "Pixtral Large", provider: "Mistral AI", providerClass: "mistral", contextLength: "128K", inputPrice: 0.002, outputPrice: 0.006, currency: "USD", per: "1K tokens", symbol: "PXL", docUrl: "https://docs.mistral.ai/getting-started/models/" },
-            { name: "Pixtral 12B", provider: "Mistral AI", providerClass: "mistral", contextLength: "128K", inputPrice: 0.00015, outputPrice: 0.00015, currency: "USD", per: "1K tokens", symbol: "PX12", docUrl: "https://docs.mistral.ai/getting-started/models/" },
-            
-            // GCP Models (16 models)
-            { name: "Gemini 2.5 Pro", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.00125, outputPrice: 0.01, currency: "USD", per: "1K tokens", featured: true, symbol: "G25P", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/models" },
-            { name: "Gemini 2.5 Flash", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.00015, outputPrice: 0.0006, currency: "USD", per: "1K tokens", symbol: "G25F", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/models" },
-            { name: "Gemini 2.0 Flash", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.0001, outputPrice: 0.0004, currency: "USD", per: "1K tokens", symbol: "G20F", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/models" },
-            { name: "Gemini 2.0 Flash Lite", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.000075, outputPrice: 0.0003, currency: "USD", per: "1K tokens", symbol: "G20FL", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/models" },
-            { name: "Gemini 1.5 Pro", provider: "Google Cloud", providerClass: "gcp", contextLength: "2M", inputPrice: 0.00125, outputPrice: 0.00375, currency: "USD", per: "1K tokens", symbol: "G15P", docUrl: "https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini" },
-            { name: "Gemini 1.5 Flash", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.000075, outputPrice: 0.0003, currency: "USD", per: "1K tokens", symbol: "G15F", docUrl: "https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini" },
-            { name: "Claude 4.6 (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "500K", inputPrice: 0.012, outputPrice: 0.06, currency: "USD", per: "1K tokens", symbol: "VC46", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude" },
-            { name: "Claude 4 Sonnet (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "200K", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "VC4S", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude" },
-            { name: "Claude 3.7 Sonnet (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "200K", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "VC37", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude" },
-            { name: "Claude 3.5 Sonnet (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "200K", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "VC35S", docUrl: "https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/claude" },
-            { name: "Claude 3.5 Haiku (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "200K", inputPrice: 0.0008, outputPrice: 0.004, currency: "USD", per: "1K tokens", symbol: "VC35H", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude" },
-            { name: "Llama 3.1 405B (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "128K", inputPrice: 0.005, outputPrice: 0.016, currency: "USD", per: "1K tokens", symbol: "VL405", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/open-models/use-llama" },
-            { name: "Cohere Command R+", provider: "Google Cloud", providerClass: "gcp", contextLength: "128K", inputPrice: 0.0025, outputPrice: 0.01, currency: "USD", per: "1K tokens", symbol: "CCR+", docUrl: "https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/cohere" },
-            { name: "Cohere Command R", provider: "Google Cloud", providerClass: "gcp", contextLength: "128K", inputPrice: 0.0005, outputPrice: 0.0015, currency: "USD", per: "1K tokens", symbol: "CCR", docUrl: "https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/cohere" },
-            { name: "Imagen 3", provider: "Google Cloud", providerClass: "gcp", contextLength: "N/A", inputPrice: 0.04, outputPrice: 0.04, currency: "USD", per: "image", symbol: "IMG3", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/image/overview" },
-            { name: "Text Embedding 004", provider: "Google Cloud", providerClass: "gcp", contextLength: "2K", inputPrice: 0.00001, outputPrice: 0.00001, currency: "USD", per: "1K tokens", symbol: "TE4", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings" },
+            { name: "Mistral Nemo", provider: "Mistral AI", providerClass: "mistral", contextLength: "128K", inputPrice: 0.00015, outputPrice: 0.00015, currency: "USD", per: "1K tokens", symbol: "MN", docUrl: "https://docs.mistral.ai/getting-started/models/" },
+
+            // ===== Google Cloud / Vertex AI (12 models) =====
+            { name: "Gemini 3.1 Pro", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.00125, outputPrice: 0.01, currency: "USD", per: "1K tokens", featured: true, symbol: "G31P", docUrl: "https://ai.google.dev/gemini-api/docs/pricing" },
+            { name: "Gemini 3 Pro", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.002, outputPrice: 0.012, currency: "USD", per: "1K tokens", symbol: "G3P", docUrl: "https://ai.google.dev/gemini-api/docs/pricing" },
+            { name: "Gemini 3.8 Flash", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.00075, outputPrice: 0.00375, currency: "USD", per: "1K tokens", symbol: "G38F", docUrl: "https://ai.google.dev/gemini-api/docs/pricing" },
+            { name: "Gemini 3 Flash", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.0005, outputPrice: 0.003, currency: "USD", per: "1K tokens", symbol: "G3F", docUrl: "https://ai.google.dev/gemini-api/docs/pricing" },
+            { name: "Gemini 3.1 Flash-Lite", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.00025, outputPrice: 0.0015, currency: "USD", per: "1K tokens", symbol: "G31FL", docUrl: "https://ai.google.dev/gemini-api/docs/pricing" },
+            { name: "Claude Opus 4.5 (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.005, outputPrice: 0.025, currency: "USD", per: "1K tokens", symbol: "VCO45", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/pricing" },
+            { name: "Claude Sonnet 4.5 (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.003, outputPrice: 0.015, currency: "USD", per: "1K tokens", symbol: "VCS45", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/pricing" },
+            { name: "Llama 4 Maverick (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "1M", inputPrice: 0.00035, outputPrice: 0.00115, currency: "USD", per: "1K tokens", symbol: "VL4M", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/pricing" },
+            { name: "Cohere Command R+ (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "128K", inputPrice: 0.0025, outputPrice: 0.01, currency: "USD", per: "1K tokens", symbol: "CCR+", docUrl: "https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/cohere" },
+            { name: "Imagen 4 (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "N/A", inputPrice: 0.04, outputPrice: 0.04, currency: "USD", per: "image", symbol: "IMG4", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/pricing" },
+            { name: "Veo 3 (Vertex AI)", provider: "Google Cloud", providerClass: "gcp", contextLength: "N/A", inputPrice: 0.4, outputPrice: 0.4, currency: "USD", per: "second", symbol: "VEO3", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/pricing" },
+            { name: "Text Embedding 005", provider: "Google Cloud", providerClass: "gcp", contextLength: "2K", inputPrice: 0.00001, outputPrice: 0.00001, currency: "USD", per: "1K tokens", symbol: "TE5", docUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings" },
         ];
     }
 
@@ -546,7 +540,10 @@ class ModelPricingApp {
         markdown += `- **Cheapest Option:** $${minCost.toFixed(6)}\n`;
         markdown += `- **Most Expensive:** $${maxCost.toFixed(6)}\n`;
         markdown += `- **Average Cost:** $${avgCost.toFixed(6)}\n`;
-        markdown += `- **Cost Range:** ${((maxCost - minCost) / minCost * 100).toFixed(1)}% difference\n\n`;
+        const costRange = minCost > 0
+            ? `${((maxCost - minCost) / minCost * 100).toFixed(1)}% difference`
+            : maxCost > 0 ? 'Not comparable from a zero-cost minimum' : '0.0% difference';
+        markdown += `- **Cost Range:** ${costRange}\n\n`;
         
         markdown += `## Tokenization Details\n\n`;
         markdown += `Different providers use different tokenization methods:\n\n`;
@@ -567,7 +564,7 @@ class ModelPricingApp {
         }
         
         markdown += `\n---\n\n`;
-        markdown += `*Report generated by [AI Model Pricing Calculator](https://copilot-founder.github.io/ai-model-pricing/)*\n`;
+        markdown += `*Report generated by [AI Model Pricing Calculator](https://mohitmehral.github.io/ai-model-pricing/)*\n`;
         markdown += `*Pricing uses provider-specific tokenization for accuracy*`;
         
         return markdown;
@@ -591,12 +588,33 @@ class ModelPricingApp {
     }
 
     updateLastUpdated() {
-        const now = new Date();
-        const dateTime = now.toLocaleString();
+        // Fixed date the pricing dataset was last reviewed against official docs.
         const element = document.getElementById('calc-last-updated');
         if (element) {
-            element.textContent = dateTime;
+            element.textContent = this.reviewedDate;
         }
+    }
+
+    // Date the dataset was last verified against official provider pricing pages.
+    get reviewedDate() { return 'October 17, 2026'; }
+
+    // Price-change history (per 1M tokens for readability). Most recent first.
+    // direction: "down" = cut, "up" = increase, "new" = launch, "retired" = removed.
+    getChangelog() {
+        return [
+            { date: "2026-10-07", provider: "Anthropic", providerClass: "anthropic", model: "Claude Haiku 5.5", direction: "new", note: "Fast, high-volume tier launched at $0.10 / $0.50 per MTok — about 90% cheaper than Haiku 4.5.", from: "—", to: "$0.10 / $0.50" },
+            { date: "2026-09-28", provider: "Anthropic", providerClass: "anthropic", model: "Claude Sonnet 5.5", direction: "new", note: "Mid-tier launched at $2 / $10 per MTok, typically using far fewer tokens per task than Sonnet 4.5.", from: "—", to: "$2.00 / $10.00" },
+            { date: "2026-09-23", provider: "OpenAI", providerClass: "openai", model: "GPT-6.1 Sol", direction: "down", note: "Mid-tier priced at $2 / $10 per MTok — half of GPT-5.6 Sol's $4 / $20.", from: "$4.00 / $20.00", to: "$2.00 / $10.00" },
+            { date: "2026-09-22", provider: "Anthropic", providerClass: "anthropic", model: "Claude Opus 5.5", direction: "down", note: "New flagship at $4 / $20 per MTok, 20% below Opus 5; cache reads down 60% to $0.20.", from: "$5.00 / $25.00", to: "$4.00 / $20.00" },
+            { date: "2026-09-03", provider: "OpenAI", providerClass: "openai", model: "GPT-6 Astra", direction: "new", note: "Top-end flagship launched at $10 / $50 per MTok (1M context window).", from: "—", to: "$10.00 / $50.00" },
+            { date: "2026-09-02", provider: "Google Cloud", providerClass: "gcp", model: "Gemini 3.8 Flash", direction: "new", note: "Introductory pricing $0.75 / $3.75 per MTok (rate doubles Jan 1, 2027).", from: "—", to: "$0.75 / $3.75" },
+            { date: "2026-08-01", provider: "AWS Bedrock", providerClass: "aws", model: "Amazon Nova Lite", direction: "down", note: "Reduced to $0.06 / $0.24 per MTok for high-volume multimodal workloads.", from: "$0.20 / $0.80", to: "$0.06 / $0.24" },
+            { date: "2026-07-30", provider: "OpenAI", providerClass: "openai", model: "GPT-6 Luna", direction: "down", note: "Budget tier cut ~80% to $0.10 / $0.50 per MTok.", from: "$0.50 / $3.00", to: "$0.10 / $0.50" },
+            { date: "2026-06-29", provider: "Google Cloud", providerClass: "gcp", model: "Gemini 3.1 Pro", direction: "new", note: "Context-tiered Pro model from $1.25 / $10 per MTok (≤200K prompt).", from: "—", to: "$1.25 / $10.00" },
+            { date: "2026-06-15", provider: "AWS Bedrock", providerClass: "aws", model: "Claude Opus 4.5 (Bedrock)", direction: "new", note: "Available on Bedrock at $5 / $25 per MTok with a 1M context window.", from: "—", to: "$5.00 / $25.00" },
+            { date: "2026-10-02", provider: "Google Cloud", providerClass: "gcp", model: "Gemini 2.5 family", direction: "retired", note: "Gemini 2.5 / 2.0 / 1.5 models retired from the API; replaced by Gemini 3.x.", from: "—", to: "Retired" },
+            { date: "2026-10-01", provider: "Azure OpenAI", providerClass: "azure", model: "GPT-4o (Azure)", direction: "retired", note: "GPT-4o Global Standard retired on Azure; auto-upgraded to GPT-5.1.", from: "—", to: "Retired" }
+        ];
     }
 
     setupTabListeners() {
@@ -612,6 +630,127 @@ class ModelPricingApp {
     }
 
 
+
+    // ===== Price Changelog =====
+    renderChangelog() {
+        const list = document.getElementById('changelog-list');
+        if (!list) return;
+        const meta = {
+            down: { icon: '▼', label: 'Price cut', cls: 'cl-down' },
+            up: { icon: '▲', label: 'Increase', cls: 'cl-up' },
+            new: { icon: '✦', label: 'New model', cls: 'cl-new' },
+            retired: { icon: '✕', label: 'Retired', cls: 'cl-retired' }
+        };
+        const esc = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const fmt = iso => new Date(iso + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+        this._changelog = this.getChangelog();
+        const render = (filter) => {
+            const rows = this._changelog.filter(e => filter === 'all' || e.providerClass === filter);
+            if (!rows.length) { list.innerHTML = '<p class="changelog-empty">No changes recorded for this provider.</p>'; return; }
+            list.innerHTML = rows.map(e => {
+                const m = meta[e.direction] || meta.new;
+                return `
+                <div class="changelog-item ${e.providerClass}">
+                    <div class="cl-marker ${m.cls}" title="${m.label}">${m.icon}</div>
+                    <div class="cl-body">
+                        <div class="cl-head">
+                            <time>${fmt(e.date)}</time>
+                            <span class="cl-badge ${m.cls}">${m.label}</span>
+                            <span class="cl-provider">${esc(e.provider)}</span>
+                        </div>
+                        <div class="cl-model">${esc(e.model)}</div>
+                        <p class="cl-note">${esc(e.note)}</p>
+                        <div class="cl-prices"><span class="cl-from">${esc(e.from)}</span><span class="cl-arrow">→</span><span class="cl-to">${esc(e.to)}</span><span class="cl-unit">per 1M tokens (in / out)</span></div>
+                    </div>
+                </div>`;
+            }).join('');
+        };
+        this._renderChangelog = render;
+        render('all');
+    }
+
+    setupChangelogFilters() {
+        const btns = document.querySelectorAll('.cl-filter');
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                if (this._renderChangelog) this._renderChangelog(btn.dataset.clprovider);
+            });
+        });
+    }
+
+    // ===== Model Comparison =====
+    setupComparison() {
+        const selA = document.getElementById('cmp-a');
+        const selB = document.getElementById('cmp-b');
+        if (!selA || !selB) return;
+
+        // Populate dropdowns with text LLMs (per 1K tokens) grouped by provider.
+        const textModels = this.models.filter(m => m.per === '1K tokens');
+        const optsHtml = ['<option value="">Select a model…</option>']
+            .concat(textModels.map(m => `<option value="${m.symbol}">${m.name} — ${m.provider}</option>`))
+            .join('');
+        selA.innerHTML = optsHtml;
+        selB.innerHTML = optsHtml;
+
+        // Sensible defaults: two popular flagships.
+        const defA = this.models.find(m => m.symbol === 'G61S') || textModels[0];
+        const defB = this.models.find(m => m.symbol === 'CO55') || textModels[1];
+        if (defA) selA.value = defA.symbol;
+        if (defB) selB.value = defB.symbol;
+
+        const update = () => this.renderComparison(selA.value, selB.value);
+        selA.addEventListener('change', update);
+        selB.addEventListener('change', update);
+        const swap = document.getElementById('cmp-swap');
+        if (swap) swap.addEventListener('click', () => { const t = selA.value; selA.value = selB.value; selB.value = t; update(); });
+        update();
+    }
+
+    renderComparison(symA, symB) {
+        const out = document.getElementById('cmp-result');
+        if (!out) return;
+        const a = this.models.find(m => m.symbol === symA);
+        const b = this.models.find(m => m.symbol === symB);
+        if (!a || !b) { out.innerHTML = '<p class="cmp-hint">Pick two models to compare their pricing side by side.</p>'; return; }
+
+        const perM = p => {
+            const v = p * 1000;
+            if (v === 0) return '$0';
+            if (v < 0.1) return '$' + v.toFixed(3).replace(/0+$/, '').replace(/\.$/, '');
+            return '$' + v.toFixed(2).replace(/\.00$/, '');
+        };
+        const esc = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+        // Verdict on blended input+output per token.
+        const aTot = a.inputPrice + a.outputPrice, bTot = b.inputPrice + b.outputPrice;
+        const cheaper = aTot <= bTot ? a : b, pricier = aTot <= bTot ? b : a;
+        const pct = (pricier.inputPrice + pricier.outputPrice) > 0
+            ? Math.round((1 - (cheaper.inputPrice + cheaper.outputPrice) / (pricier.inputPrice + pricier.outputPrice)) * 100) : 0;
+
+        const win = (x, y) => x < y ? 'cmp-win' : '';
+        out.innerHTML = `
+            <div class="cmp-cards">
+                <div class="cmp-card ${a.providerClass}">
+                    <div class="cmp-card-name">${esc(a.name)}</div>
+                    <div class="cmp-card-provider">${esc(a.provider)}</div>
+                    <div class="cmp-row"><span>Input / 1M</span><span class="cmp-val ${win(a.inputPrice, b.inputPrice)}">${perM(a.inputPrice)}</span></div>
+                    <div class="cmp-row"><span>Output / 1M</span><span class="cmp-val ${win(a.outputPrice, b.outputPrice)}">${perM(a.outputPrice)}</span></div>
+                    <div class="cmp-row"><span>Context</span><span class="cmp-val">${esc(a.contextLength)}</span></div>
+                </div>
+                <div class="cmp-vs">VS</div>
+                <div class="cmp-card ${b.providerClass}">
+                    <div class="cmp-card-name">${esc(b.name)}</div>
+                    <div class="cmp-card-provider">${esc(b.provider)}</div>
+                    <div class="cmp-row"><span>Input / 1M</span><span class="cmp-val ${win(b.inputPrice, a.inputPrice)}">${perM(b.inputPrice)}</span></div>
+                    <div class="cmp-row"><span>Output / 1M</span><span class="cmp-val ${win(b.outputPrice, a.outputPrice)}">${perM(b.outputPrice)}</span></div>
+                    <div class="cmp-row"><span>Context</span><span class="cmp-val">${esc(b.contextLength)}</span></div>
+                </div>
+            </div>
+            <div class="cmp-verdict"><strong>${esc(cheaper.name)}</strong> is about <strong>${pct}% cheaper</strong> than ${esc(pricier.name)} on a blended input+output basis. Enter your prompt in the calculator above to compare the exact cost for your workload.</div>`;
+    }
 
     getModelType(model) {
         const name = model.name.toLowerCase();
