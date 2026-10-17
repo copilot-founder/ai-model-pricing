@@ -9,18 +9,18 @@
     <meta name="keywords" content="AI pricing calculator, OpenAI pricing, AWS Bedrock cost, Azure OpenAI pricing, Anthropic Claude pricing, Google Cloud AI pricing, AI model comparison, token calculator, LLM pricing, tokenizer, AI tokenization">
     <meta name="author" content="Mohit Mehral">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://copilot-founder.github.io/ai-model-pricing/">
+    <link rel="canonical" href="https://mohitmehral.github.io/ai-model-pricing/">
     <meta name="theme-color" content="#0a0a0f">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://copilot-founder.github.io/ai-model-pricing/">
+    <meta property="og:url" content="https://mohitmehral.github.io/ai-model-pricing/">
     <meta property="og:title" content="AI Model Pricing Calculator 2026 — GPT-6, Claude 5.5, Gemini 3 & More">
     <meta property="og:description" content="Compare 2026 AI model pricing across 60+ models from OpenAI, Anthropic, Google, AWS, Azure & Mistral. Free token calculator with real-time cost estimates.">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary">
-    <meta property="twitter:url" content="https://copilot-founder.github.io/ai-model-pricing/">
+    <meta property="twitter:url" content="https://mohitmehral.github.io/ai-model-pricing/">
     <meta property="twitter:title" content="AI Model Pricing Calculator 2026 — GPT-6, Claude 5.5, Gemini 3 & More">
     <meta property="twitter:description" content="Compare 2026 AI model pricing across 60+ models from OpenAI, Anthropic, Google, AWS, Azure & Mistral. Free token calculator with real-time cost estimates.">
     
@@ -31,7 +31,7 @@
       "@type": "WebApplication",
       "name": "AI Model Pricing Calculator 2026",
       "description": "Compare 2026 pricing across OpenAI GPT-6, Anthropic Claude 5.5, Google Gemini 3, AWS Nova (Bedrock), Azure OpenAI and Mistral with real-time token calculation.",
-      "url": "https://copilot-founder.github.io/ai-model-pricing/",
+      "url": "https://mohitmehral.github.io/ai-model-pricing/",
       "author": {
         "@type": "Person",
         "name": "Mohit Mehral"
@@ -660,9 +660,6 @@ This tool helps developers, businesses, and researchers make informed decisions 
             }
             document.getElementById('gemini-generate-btn').classList.remove('hidden');
             document.getElementById('security-note').classList.remove('hidden');
-            document.getElementById('ai-rt-arrow').classList.add('hidden');
-            document.querySelector('.ai-realtime-block').style.borderStyle = 'solid';
-            document.querySelector('.ai-realtime-block').style.animation = 'none';
         },
 
         disconnect() {
@@ -683,9 +680,6 @@ This tool helps developers, businesses, and researchers make informed decisions 
             grokBtn.title = '';
             document.getElementById('gemini-generate-btn').classList.add('hidden');
             document.getElementById('security-note').classList.add('hidden');
-            document.getElementById('ai-rt-arrow').classList.remove('hidden');
-            document.querySelector('.ai-realtime-block').style.borderStyle = 'dashed';
-            document.querySelector('.ai-realtime-block').style.animation = 'softGlow 3s ease infinite';
         },
 
         async generate() {

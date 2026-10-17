@@ -22,7 +22,7 @@ A comprehensive web application to compare pricing across major AI providers inc
 
 ## Live Demo###
 
- **[Visit AI Model Pricing Calculator](https://copilot-founder.github.io/ai-model-pricing/)**
+ **[Visit AI Model Pricing Calculator](https://mohitmehral.github.io/ai-model-pricing/)**
 
 ## Tokenization Accuracy
 
