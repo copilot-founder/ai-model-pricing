@@ -289,6 +289,12 @@ class ModelPricingApp {
         if (this.activeProvider !== 'all') {
             filteredModels = filteredModels.filter(model => model.providerClass === this.activeProvider);
         }
+        const favs = this.getFavorites();
+        filteredModels = [...filteredModels].sort((a, b) => {
+            const aFav = favs.includes(a.symbol) ? 1 : 0;
+            const bFav = favs.includes(b.symbol) ? 1 : 0;
+            return bFav - aFav;
+        });
         modelElements.forEach((element, index) => {
             const model = filteredModels[index];
             if (model) {
@@ -487,10 +493,10 @@ class ModelPricingApp {
         
         // Use provider-specific tokens for report
         const reportInputTokens = provider === 'all' ? 
-            Math.round(Object.values(this.inputTokens).reduce((a, b) => a + b, 0) / 5) : 
+            Math.round(Object.values(this.inputTokens).reduce((a, b) => a + b, 0) / Object.values(this.inputTokens).length) :
             this.inputTokens[provider];
         const reportOutputTokens = provider === 'all' ? 
-            Math.round(Object.values(this.outputTokens).reduce((a, b) => a + b, 0) / 5) : 
+            Math.round(Object.values(this.outputTokens).reduce((a, b) => a + b, 0) / Object.values(this.outputTokens).length) :
             this.outputTokens[provider];
         
         let markdown = `# AI Model Pricing Report\n\n`;

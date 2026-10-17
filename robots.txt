@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: 
+Sitemap: https://mohitmehral.github.io/ai-model-pricing/sitemap.xml
